@@ -131,7 +131,7 @@ function payView(){const g={};payRows.forEach(x=>(g[x.date]=g[x.date]||[]).push(
  let h=`<div class="stats"><div class="k"><small>To‘lanishi kerak</small><b>${payRows.length}</b> kishi</div><div class="k"><small>Umumiy summa</small><b>${fmt(tot)}</b> so‘m</div></div>`;
  if(!payRows.length)return h+'<p class="sub">To‘lanmagan imzo yo‘q.</p>';
  const ps=[...psel].reduce((a,k)=>a+Number((payRows.find(x=>x.date+"_"+x.emp===k)||{}).amt||0),0);
- h+=`<div class="acts" style="justify-content:flex-start;margin:0 0 8px"><button class="pri" data-a="paysel" ${psel.size?"":"disabled"}>To‘landi: ${psel.size} kishi, ${fmt(ps)} so‘m</button><button data-a="payall">Hammasini belgilash</button><button data-a="payclr">Tanlovni bekor qilish</button></div>`;
+ h+=`<div class="acts" style="justify-content:flex-start;margin:0 0 8px"><button class="pri" data-a="paysel" ${psel.size?"":"disabled"}>To‘landi: ${psel.size} kishi, ${fmt(ps)} so‘m</button><button class="d" data-a="paycancel" ${psel.size?"":"disabled"}>Bekor qilish (${psel.size})</button><button data-a="payall">Hammasini belgilash</button><button data-a="payclr">Tanlovni bekor qilish</button></div>`;
  Object.keys(g).sort().reverse().forEach(d=>{const L=g[d];h+=`<h2>${d===todayS()?"Bugun":d.split("-").reverse().join(".")}: ${L.length} kishi, ${fmt(L.reduce((a,x)=>a+Number(x.amt),0))} so‘m</h2>`+L.map(x=>{const k=x.date+"_"+x.emp,on=psel.has(k);return `<button class="em ${on?"sel":""}" style="width:100%;margin-bottom:8px" data-a="pk:${k}"><span class="ck">${on?"✓":""}</span><span style="flex:1">${esc(x.name)}<small>${esc(dn(x.dept))}, ${hm(x.ts)}</small></span><b>${fmt(x.amt)}</b></button>`}).join("")});return h}
 function reqView(){if(!reqs.length)return '<p class="sub">Yangi so‘rovlar yo‘q.</p>';return reqs.map(q=>`<div class="sr"><input data-c="rq" id="rq${q.id}" value="${esc(q.name)}"><select data-c="rq" id="rqd${q.id}">${dopts(q.dept)}</select><button class="pri" data-a="ap:${q.id}">Tasdiqlash</button><button class="d" data-a="rj:${q.id}">Rad etish</button></div>`).join("")}
 function archView(){if(!daysList.length)return '<p class="sub">Arxiv bo‘sh.</p>';return daysList.map(d=>`<div class="r"><div><b>${d.date.split("-").reverse().join(".")}</b> ${WD[new Date(d.date+"T12:00:00").getDay()]}<p class="sub" style="margin:0">${d.n} kishi, ${fmt(d.sum)} so‘m. To‘langan: ${d.paidN} (${fmt(d.paidSum)})${d.n>d.paidN?`. <span style="color:var(--dan)">To‘lanmagan: ${d.n-d.paidN} (${fmt(d.sum-d.paidSum)})</span>`:""}${d.closed?"":". Kun ochiq"}</p></div><button data-a="op:${d.date}">Ochish</button></div>`).join("")}
@@ -185,6 +185,7 @@ function act(a,b){const[k,v]=a.split(":"),id=+v;
  else if(k==="pk"){psel.has(v)?psel.delete(v):psel.add(v);render()}
  else if(k==="payall"){payRows.forEach(x=>psel.add(x.date+"_"+x.emp));render()}
  else if(k==="payclr"){psel.clear();render()}
+ else if(k==="paycancel")two(b,()=>api({action:"rmMany",pin:PIN,items:[...psel]}).then(()=>{psel.clear();lastPay="";loadPay();last="";load()}));
  else if(k==="paysel")two(b,()=>api({action:"pay",pin:PIN,items:[...psel]}).then(()=>{psel.clear();lastPay="";loadPay();last="";load()}));
  else if(k==="op"){date=v;tab="today";subSigs();render();needImgs()}
  else if(k==="totoday"){date=todayS();subSigs();render()}
