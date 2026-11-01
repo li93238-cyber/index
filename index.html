@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tushlik puli, imzo</title>
+<style>
+:root{--bg:#f4f6f5;--card:#fff;--ink:#14231e;--mut:#66787a;--line:#dfe6e4;--ac:#0e8a5f;--acx:#fff;--off:#fff4e0;--dan:#d1382f;--sh:0 1px 2px rgba(16,40,32,.05),0 8px 24px rgba(16,40,32,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1311;--card:#141d1a;--ink:#e9f1ef;--mut:#8fa5a1;--line:#243531;--ac:#3ddc9a;--acx:#06251a;--off:#33281a;--dan:#ff8f85;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)}}
+:root[data-theme="dark"]{--bg:#0c1311;--card:#141d1a;--ink:#e9f1ef;--mut:#8fa5a1;--line:#243531;--ac:#3ddc9a;--acx:#06251a;--off:#33281a;--dan:#ff8f85;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 "Segoe UI Variable","Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+#app{max-width:1100px;margin:0 auto;padding:16px 14px 120px}
+button,input,select{font:inherit;color:var(--ink)}
+button{border:1px solid var(--line);background:var(--card);border-radius:12px;min-height:48px;padding:0 16px;font-weight:600;cursor:pointer}
+button.pri{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+button.d{color:var(--dan);background:transparent;border-color:transparent}
+button:disabled{opacity:.4;cursor:default}
+input,select{background:var(--card);border:1px solid var(--line);border-radius:12px;min-height:48px;padding:0 12px;min-width:0}
+.top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px}
+h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;display:flex;gap:10px;align-items:center}
+h1::before{content:"";width:14px;height:14px;border-radius:5px;background:var(--ac)}
+.sub{color:var(--mut);margin:2px 0 0 24px;font-size:14px}
+.tabs,.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px}
+.tabs button,.chips button{white-space:nowrap}
+.chips button{min-height:40px;border-radius:99px}
+.tabs .on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips .on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.srch{width:100%;margin-bottom:10px;font-size:18px}
+h2{font-size:15px;color:var(--mut);margin:18px 0 8px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.em{display:flex;align-items:center;gap:12px;text-align:left;min-height:66px;padding:10px 14px;border-radius:16px;box-shadow:var(--sh)}
+.em small{display:block;color:var(--mut);font-weight:500}
+.ck{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.em.sel{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,var(--card))}
+.em.sel .ck,.em.tk .ck{background:var(--ac);border-color:var(--ac);color:var(--acx)}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);display:flex;gap:12px;align-items:center;justify-content:space-between;z-index:20}
+.bar .sub{margin:0}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:14px;z-index:30}
+.mo{background:var(--card);border-radius:20px;padding:18px;width:min(640px,100%);max-height:100%;overflow:auto}
+.mo h3{margin:0 0 6px;font-size:20px}
+canvas{width:100%;height:auto;aspect-ratio:5/2;background:#fff;border:2px dashed var(--line);border-radius:14px;touch-action:none;display:block}
+.acts{display:flex;gap:10px;margin-top:12px;justify-content:flex-end;flex-wrap:wrap}
+.er{color:var(--dan);margin:8px 0 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0}
+.k{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--sh)}
+.k small{display:block;color:var(--mut)}.k b{font-size:26px;font-weight:800}
+.r{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:8px}
+.r img{width:96px;height:40px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--line)}
+.r div{flex:1}
+.add{display:flex;flex-wrap:wrap;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:10px;box-shadow:var(--sh)}
+.add input{flex:1 1 220px}
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:8px;align-items:center}
+.sr.off{background:var(--off)}
+.tg{display:flex;align-items:center;gap:8px}.tg input{width:22px;height:22px;min-height:0;accent-color:var(--ac)}
+.dn{font-size:17px;font-weight:700;width:100%;margin-top:14px;border-color:transparent;background:transparent}
+#print{display:none}
+@media print{
+@page{size:A4;margin:8mm 10mm}
+html,body{background:#fff!important;color:#000!important;padding:0}
+#app,#mo{display:none!important}
+#print{display:block;width:fit-content;margin:0 auto;border:1.5px solid #000;padding:3mm;font-family:"Times New Roman",Times,serif;font-size:10pt;line-height:1;color:#000}
+.ph{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:2mm}
+.lg{font:800 18pt/1 Arial,Helvetica,sans-serif;color:#1c9a47;letter-spacing:.04em}
+.ph .t{font-weight:700;font-size:13pt;text-align:center}.ph .d{text-align:right;font-size:12pt}
+#print table{width:175mm;border-collapse:collapse;table-layout:fixed}
+#print thead{display:table-header-group}
+#print th,#print td{border:1px solid #000;padding:0 4px;height:7.5mm;overflow:hidden;white-space:nowrap}
+#print th{text-align:center}
+#print tr{break-inside:avoid}
+#print .n{width:10mm}#print .f{width:78mm}#print .s{width:24mm}#print .m{width:16mm}
+#print td:first-child{text-align:center}#print td:nth-child(3){text-align:right}#print td:nth-child(5){text-align:center;font-weight:700}
+#print td img{height:6.5mm;max-width:42mm;display:block;margin:0 auto}
+#print td.dp{background:#e6e6e6;text-align:center;font-weight:700}#print tr.o td{background:#eee;color:#444}
+.pf{margin-top:3mm;display:flex;justify-content:space-between;font-weight:700;font-size:11pt;break-inside:avoid}
+}
+</style></head>
+<body>
+<div id="app"></div><div id="mo"></div><div id="print"></div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>Number(n||0).toLocaleString("ru-RU");
+const WD=["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"],ORD=[1,2,3,4,5,6,0];
+const pad=n=>String(n).padStart(2,"0");
+const todayS=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+const hm=t=>{const d=new Date(t);return pad(d.getHours())+":"+pad(d.getMinutes())};
+const API="https://script.google.com/macros/s/AKfycbz9b-JbjM6fXPb5Y0a9U1T_jN7qOcH6F2Owd2sRWnTLYhHQx4axBc27G_pFlhyqNZdJ/exec";
+const SEED={"amount":30000,"next":1000,"depts":[{"id":1,"name":"Савдо дукони бошқарув"},{"id":2,"name":"Савдо дукони умумий бўлим"},{"id":3,"name":"Коллаборация бўлими"},{"id":4,"name":"Савдо дукони товарлар билан ишлаш бўлими"},{"id":5,"name":"Савдо дукони ундирув бўлими"},{"id":6,"name":"Савдо дукони реклама бўлими"},{"id":7,"name":"Хужалик бўлими"}],"emps":[{"id":1,"name":"Abdusharofov Zohidjon Abdushukurovich","dept":1,"off":null,"days":{}},{"id":2,"name":"Мусаев Алишер Зокир угли","dept":2,"off":null,"days":{}},{"id":3,"name":"Мирзабеков Худойберди Абдухомидович","dept":2,"off":null,"days":{}},{"id":4,"name":"Ходжирахматова Дилфуза Абдурашидовна","dept":2,"off":6,"days":{}},{"id":5,"name":"Акбаралиева Мадина","dept":2,"off":null,"days":{}},{"id":6,"name":"Бухарбаева Фарида Эскелдиевна","dept":2,"off":null,"days":{}},{"id":7,"name":"Рахимова Садорат Аблулложоновна","dept":2,"off":null,"days":{}},{"id":8,"name":"Жабборова Махлиё","dept":2,"off":null,"days":{}},{"id":9,"name":"Рузматова Мадина","dept":2,"off":null,"days":{}},{"id":10,"name":"Исмоилова Шахло","dept":2,"off":null,"days":{}},{"id":11,"name":"Ibragimova Zuxraxon Anvarjon Qizi","dept":2,"off":null,"days":{}},{"id":12,"name":"Yigitaliyeva Nilufar Nuriddin Qizi","dept":2,"off":null,"days":{}},{"id":13,"name":"Мухаммаджонов Сардорбек","dept":3,"off":4,"days":{}},{"id":14,"name":"Абдураимов Авазбек","dept":3,"off":2,"days":{}},{"id":15,"name":"Рахмонбердиев Шахбоз","dept":3,"off":null,"days":{}},{"id":16,"name":"Гуломов Самандар","dept":3,"off":3,"days":{}},{"id":17,"name":"Berdiqulov Javoxir Baxodir-ug‘li","dept":3,"off":null,"days":{}},{"id":18,"name":"Solijonov Ulug‘bek Saparali-o‘g‘li","dept":3,"off":null,"days":{}},{"id":19,"name":"Саримсоков Ботирали","dept":3,"off":null,"days":{}},{"id":20,"name":"Ismoilov Murodjon","dept":3,"off":null,"days":{}},{"id":21,"name":"Мовлианкулов Жасур","dept":4,"off":null,"days":{}},{"id":22,"name":"Бердиев Абдурашид Абдугапор Угли","dept":4,"off":null,"days":{}},{"id":23,"name":"Mamasoliyev Javlon","dept":4,"off":null,"days":{}},{"id":24,"name":"Уразкулов Сардор","dept":4,"off":null,"days":{}},{"id":25,"name":"Ахмедов Бахром","dept":4,"off":null,"days":{}},{"id":26,"name":"G‘ulomjonov Muxammadali Dilshodbek O‘g‘li","dept":4,"off":null,"days":{}},{"id":27,"name":"Уразкулов Убайдулло","dept":4,"off":null,"days":{}},{"id":28,"name":"Карабаев Фарход","dept":4,"off":null,"days":{}},{"id":29,"name":"Ахмедов Шерзод","dept":5,"off":null,"days":{}},{"id":30,"name":"Маматурсунов Ориф","dept":5,"off":null,"days":{}},{"id":31,"name":"Зарифов Соибжон Ёкибжон Угли","dept":5,"off":null,"days":{}},{"id":32,"name":"Олимов Санжар","dept":5,"off":null,"days":{}},{"id":33,"name":"Курбонов Мамуржон","dept":5,"off":null,"days":{}},{"id":34,"name":"Ўринбоев Алишер","dept":5,"off":null,"days":{}},{"id":35,"name":"Шарипов Зариф","dept":5,"off":null,"days":{}},{"id":36,"name":"Саидмуратова Шахноза","dept":5,"off":null,"days":{}},{"id":37,"name":"Пирматов Атхам","dept":5,"off":null,"days":{}},{"id":38,"name":"Ziyamidinov Iskandar Anvarovich","dept":5,"off":null,"days":{}},{"id":39,"name":"Kuliyev Boburjon Bobojon O‘g‘li","dept":5,"off":null,"days":{}},{"id":40,"name":"Kuzibayev Ikram Shavkatovich","dept":5,"off":null,"days":{}},{"id":41,"name":"Norbayev Elyor Baxtiyor O‘g‘li","dept":5,"off":null,"days":{}},{"id":42,"name":"Ruzimatov Ibromximjon","dept":5,"off":null,"days":{}},{"id":43,"name":"Karabayev Xasan Aliyor O‘g‘li","dept":5,"off":null,"days":{}},{"id":44,"name":"Kamolov Shoxrux Abduraxmonovich","dept":5,"off":null,"days":{}},{"id":45,"name":"Ibragimov Abdumalik Abduganiyevich","dept":5,"off":null,"days":{}},{"id":46,"name":"Saydinov Rustam Akramovich","dept":5,"off":null,"days":{}},{"id":47,"name":"Mirzabekova Dinora Ruzimurod Qizi","dept":5,"off":null,"days":{}},{"id":48,"name":"Azizov Ulug‘bek Abduzokirovich","dept":5,"off":null,"days":{}},{"id":49,"name":"Norinbekov Boxodirjon Muxtorjonovich","dept":5,"off":null,"days":{}},{"id":50,"name":"Abdulxayev Javoxir","dept":5,"off":null,"days":{}},{"id":51,"name":"Turdiboyev Bekzod Jaxongir-o‘g‘li","dept":5,"off":null,"days":{}},{"id":52,"name":"Хакимов Комрон Шерзод Угли","dept":6,"off":5,"days":{}},{"id":53,"name":"Abdushukurov Suxrob Shokir O‘g‘li","dept":6,"off":null,"days":{}},{"id":54,"name":"Нуридтинова Шахзода","dept":6,"off":null,"days":{}},{"id":55,"name":"Qayumova Shaxnoza Abdurashid Qizi","dept":6,"off":null,"days":{}},{"id":56,"name":"Arifova Shoira Jahongir Qizi","dept":6,"off":null,"days":{}},{"id":57,"name":"Gulmuradova Feruza","dept":6,"off":null,"days":{}},{"id":58,"name":"Sultonova Feruza Xuseyin Qizi","dept":6,"off":null,"days":{}},{"id":59,"name":"Ўтанбаева Мунажот Тажикуловна","dept":7,"off":null,"days":{}}]};
+let R=null,sigs={},imgs={},last="",loaded=false,errMsg="",PIN="",admin=false,kiosk=false,tab="sign",date=todayS(),sel=new Set(),q="",df=0,padClear=()=>{};
+async function api(p){try{const r=await fetch(API,{method:"POST",body:JSON.stringify(p)});return await r.json()}catch(e){return{ok:false,err:"Aloqa yo‘q. Internetni tekshiring."}}}
+const small=c=>{const o=document.createElement("canvas");o.width=400;o.height=160;o.getContext("2d").drawImage(c,0,0,400,160);return o.toDataURL("image/png")};
+try{kiosk=localStorage.getItem("ish_kiosk")==="1";PIN=localStorage.getItem("ish_pin")||""}catch(e){}
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const wd=()=>new Date(date+"T12:00:00").getDay();
+const isOff=e=>e.days&&e.days[date]!==undefined?e.days[date]:e.off===wd();
+const amt=()=>(R&&R.amount)||0;
+const fdate=()=>date.split("-").reverse().join(".");
+const emp=id=>R.emps.find(e=>e.id===id);
+const dn=id=>{const d=R.depts.find(d=>d.id===id);return d?d.name:""};
+const wopts=s=>'<option value="">Haftalik dam yo‘q</option>'+ORD.map(d=>`<option value="${d}"${s===d?" selected":""}>${WD[d]}</option>`).join("");
+const dopts=s=>R.depts.map(d=>`<option value="${d.id}"${s===d.id?" selected":""}>${esc(d.name)}</option>`).join("");
+const saveR=()=>{api({action:"saveRoster",pin:PIN,roster:R}).then(r=>{if(!r.ok)alert(r.err||"Saqlanmadi");else last=""})};
+const upd=fn=>{fn();saveR();render()};
+function subSigs(){last="";sigs={};load()}
+async function load(){const r=await api({action:"state",date});if(!r.ok){errMsg=r.err||"Xato";if(!loaded)render();return}
+ const s=JSON.stringify(r);if(s===last)return;last=s;errMsg="";loaded=true;R=r.roster&&r.roster.depts?r.roster:null;sigs={};(r.sigs||[]).forEach(x=>{x.img=imgs[date+"_"+x.emp+"_"+x.ts];sigs[x.emp]=x});
+ const a=document.activeElement;if(!(a&&a.dataset&&a.dataset.c))render();needImgs()}
+async function needImgs(f){if(!f&&(!admin||kiosk||tab!=="today"))return;const miss=Object.values(sigs).filter(s=>!s.img).map(s=>s.emp);if(!miss.length)return;const r=await api({action:"imgs",pin:PIN,date,emps:miss});if(!r.ok)return;Object.values(sigs).forEach(s=>{const m=r.imgs[s.emp];if(m){imgs[date+"_"+s.emp+"_"+s.ts]=m;s.img=m}});render()}
+setInterval(()=>{if(document.visibilityState==="visible")load()},8000);
+function head(emp){return `<div class="top"><div><h1>Tushlik puli</h1><p class="sub">${WD[wd()]}, ${fdate()}. Bir kishiga ${fmt(amt())} so‘m</p></div><div>${emp?'<button data-a="unlock">Admin</button>':""}${!emp?'<button data-a="kiosk">Xodimlar rejimi</button>':""}</div></div>`+(emp?"":`<div class="tabs">${[["sign","Imzo"],["today","Bugun"],["staff","Xodimlar"],["set","Sozlamalar"]].map(t=>`<button class="${tab===t[0]?"on":""}" data-a="tab:${t[0]}">${t[1]}</button>`).join("")}</div>`)}
+function card(e){const s=sigs[e.id],o=isOff(e),on=sel.has(e.id);
+ return `<button class="em ${s?"tk":on?"sel":""}" ${s||o?"disabled":""} data-a="pick:${e.id}"><span class="ck">${s||on?"✓":""}</span><span>${esc(e.name)}${s?`<small>Olgan, ${hm(s.ts)}</small>`:o?"<small>Dam kuni</small>":""}</span></button>`}
+function grid(){let h="";const t=q.trim().toLowerCase();
+ R.depts.forEach(d=>{if(df&&df!==d.id)return;const L=R.emps.filter(e=>e.dept===d.id&&(!t||e.name.toLowerCase().includes(t)));if(!L.length)return;h+=`<h2>${esc(d.name)}</h2><div class="grid">${L.map(card).join("")}</div>`});
+ return h||'<p class="sub">Hech kim topilmadi.</p>'}
+function bar(){const n=sel.size;return `<div class="bar"><div><b>${n?"Tanlandi: "+n:"Ismingizni tanlang"}</b><p class="sub">${n?"Jami: "+fmt(n*amt())+" so‘m":"Bir nechta xodimni tanlab, birga imzo qo‘yish mumkin"}</p></div><button class="pri" ${n?"":"disabled"} data-a="sign">Imzo qo‘yish</button></div>`}
+function signView(){return `<input class="srch" id="q" placeholder="Ismingizni qidiring" value="${esc(q)}" autocomplete="off"><div class="chips"><button class="${df?"":"on"}" data-a="df:0">Hammasi</button>${R.depts.map(d=>`<button class="${df===d.id?"on":""}" data-a="df:${d.id}">${esc(d.name)}</button>`).join("")}</div><div id="gc">${grid()}</div>${bar()}`}
+function todayView(){let on=0,off=0,got=0,sum=0;R.emps.forEach(e=>{const s=sigs[e.id];if(s){got++;sum+=s.amt}else if(isOff(e))off++;else on++});
+ const L=Object.values(sigs).sort((a,b)=>b.ts-a.ts),w=R.emps.filter(e=>!sigs[e.id]&&!isOff(e));
+ return `<label class="sub" style="margin:0">Sana <input type="date" id="dt" value="${date}"></label> <button class="pri" data-a="print">A4 hisobot (imzolar bilan)</button><div class="stats"><div class="k"><small>Olganlar</small><b>${got}</b></div><div class="k"><small>Hali olmagan</small><b>${on}</b></div><div class="k"><small>Dam</small><b>${off}</b></div><div class="k"><small>Berilgan summa</small><b>${fmt(sum)}</b></div></div><h2>Imzolar (${L.length})</h2>${L.map(s=>`<div class="r">${s.img?`<img src="${s.img}" alt="imzo">`:'<span class="sub">…</span>'}<div><b>${esc(s.name)}</b><p class="sub" style="margin:0">${esc(dn(s.dept))}, ${hm(s.ts)}, ${fmt(s.amt)} so‘m</p></div><button class="d" data-a="rm:${s.emp}">Bekor qilish</button></div>`).join("")||'<p class="sub">Hali imzo yo‘q.</p>'}<h2>Hali olmaganlar (${w.length})</h2><p>${w.map(e=>esc(e.name)).join(", ")||"Hammasi oldi."}</p>`}
+function staffView(){let h=`<div class="add"><input id="nn" placeholder="Yangi xodim F.I.O"><select id="nd">${dopts(R.depts[0]&&R.depts[0].id)}</select><select id="nw">${wopts(null)}</select><button class="pri" data-a="addE">Xodim qo‘shish</button></div><div class="add"><input id="ndn" placeholder="Yangi bo‘lim nomi"><button data-a="addD">Bo‘lim qo‘shish</button></div>`;
+ R.depts.forEach(d=>{const L=R.emps.filter(e=>e.dept===d.id);h+=`<input class="dn" value="${esc(d.name)}" data-c="dr:${d.id}">`+L.map(e=>`<div class="sr${isOff(e)?" off":""}"><input value="${esc(e.name)}" data-c="en:${e.id}"><select data-c="ed:${e.id}">${dopts(e.dept)}</select><select data-c="ew:${e.id}">${wopts(e.off)}</select><label class="tg"><input type="checkbox" ${isOff(e)?"checked":""} data-c="eo:${e.id}">Dam (${fdate()})</label><button class="d" data-a="de:${e.id}">O‘chirish</button></div>`).join("")+(L.length?"":`<button class="d" data-a="dd:${d.id}">Bo‘limni o‘chirish</button>`)});return h}
+function setView(){return `<div class="add" style="flex-direction:column"><label class="sub" style="margin:0">Bir kishiga tushlik puli (so‘m)<input type="number" step="1000" min="0" value="${R.amount}" data-c="amt" style="width:100%"></label><label class="sub" style="margin:0">Admin PIN kodi (4 ta raqam)<input value="${esc(PIN)}" inputmode="numeric" maxlength="4" data-c="pin" style="width:100%"></label><button class="pri" data-a="kiosk">Xodimlar rejimini yoqish</button></div>`}
+function render(){
+ const e=!admin||kiosk,a=document.activeElement,keep=a&&a.id==="q"?a.selectionStart:null;
+ if(e&&date!==todayS()){date=todayS();subSigs()}
+ if(!loaded){$("app").innerHTML=head(true)+'<p class="sub">'+(errMsg||"Yuklanmoqda…")+"</p>";return}
+ if(!R){$("app").innerHTML=head(e)+"<p>Ro‘yxat bo‘sh.</p>"+(admin&&!e?'<button class="pri" data-a="init">Boshlang‘ich ro‘yxatni yuklash</button>':"");return}
+ $("app").innerHTML=head(e)+(e||tab==="sign"?signView():tab==="today"?todayView():tab==="staff"?staffView():setView());
+ if(keep!==null){const i=$("q");if(i){i.focus();i.setSelectionRange(keep,keep)}}
+}
+function openSign(){const ids=[...sel].filter(i=>!sigs[i]);if(!ids.length)return;
+ $("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Imzo qo‘ying</h3><p class="sub" style="margin:0 0 10px">${ids.map(i=>esc(emp(i).name)).join(", ")}<br><b>Olinadigan summa: ${fmt(ids.length*amt())} so‘m</b></p><canvas id="cv" width="600" height="240"></canvas><p class="er" id="er"></p><div class="acts"><button data-a="clr">Tozalash</button><button data-a="cancel">Bekor qilish</button><button class="pri" id="ok" data-a="ok" disabled>Tasdiqlash</button></div></div></div>`;
+ const c=$("cv"),x=c.getContext("2d");x.lineWidth=4;x.lineCap=x.lineJoin="round";x.strokeStyle="#111";let dr=false,ink=false,lx,ly;
+ const P=v=>{const r=c.getBoundingClientRect();return[(v.clientX-r.left)*c.width/r.width,(v.clientY-r.top)*c.height/r.height]};
+ c.onpointerdown=v=>{dr=true;c.setPointerCapture(v.pointerId);[lx,ly]=P(v)};
+ c.onpointermove=v=>{if(!dr)return;const[px,py]=P(v);x.beginPath();x.moveTo(lx,ly);x.lineTo(px,py);x.stroke();lx=px;ly=py;if(!ink){ink=true;$("ok").disabled=false}};
+ c.onpointerup=c.onpointercancel=()=>{dr=false};
+ padClear=()=>{x.clearRect(0,0,c.width,c.height);ink=false;$("ok").disabled=true}}
+const closeMo=()=>{$("mo").innerHTML="";render()};
+async function confirmSign(){const img=small($("cv")),ids=[...sel].filter(i=>!sigs[i]),ts=Date.now();
+ $("ok").disabled=true;$("ok").textContent="Saqlanmoqda";
+ try{const r=await api({action:"sign",date,ids,img});if(!r.ok)throw r.err||1;last="";load();
+  sel.clear();$("mo").innerHTML=`<div class="ov"><div class="mo" style="text-align:center"><div style="font-size:56px;color:var(--ac)">✓</div><h3>Imzo qabul qilindi</h3><p>Kassadan oling: <b>${fmt(ids.length*amt())} so‘m</b></p><button class="pri" data-a="cancel">Yopish</button></div></div>`;setTimeout(()=>{if($("mo").innerHTML)closeMo()},6000)}
+ catch(e){$("ok").disabled=false;$("ok").textContent="Tasdiqlash";$("er").textContent=(typeof e==="string"?e:"Saqlab bo‘lmadi.")+" Qayta urinib ko‘ring."}}
+function askPin(){$("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Admin PIN</h3><input id="pi" type="password" inputmode="numeric" maxlength="4" style="width:100%;font-size:24px;text-align:center"><p class="er" id="er"></p><div class="acts"><button data-a="cancel">Bekor qilish</button><button class="pri" data-a="pin">Kirish</button></div></div></div>`;$("pi").focus()}
+async function prt(){await needImgs(true);let h="",n=0,sum=0,got=0;
+ R.depts.forEach(d=>{const L=R.emps.filter(e=>e.dept===d.id);if(!L.length)return;h+=`<tr><td class="dp" colspan="5">${esc(d.name)}</td></tr>`;
+  L.forEach(e=>{n++;const s=sigs[e.id],o=isOff(e)&&!s;if(s){got++;sum+=s.amt}h+=`<tr class="${o?"o":""}"><td>${n}</td><td>${esc(e.name)}</td><td>${s?fmt(s.amt):""}</td><td>${s&&s.img?`<img src="${s.img}" alt="">`:""}</td><td>${o?"Дам":""}</td></tr>`})});
+ $("print").innerHTML=`<div class="ph"><div class="lg">ISHONCH</div><div class="t">Тушлик Пули</div><div class="d">Сана: <u>${fdate()}</u></div></div><table><thead><tr><th class="n">№</th><th class="f">ФИО</th><th class="s">Сумма</th><th>Имзо</th><th class="m">Дам</th></tr></thead><tbody>${h}</tbody></table><div class="pf"><span>Olganlar: ${got} ta</span><span>Jami: ${fmt(sum)} so‘m</span></div>`;
+ setTimeout(()=>window.print(),300)}
+function two(b,fn){if(b.dataset.s){fn();return}b.dataset.s=1;const o=b.textContent;b.textContent="Aniqmi?";setTimeout(()=>{b.dataset.s="";b.textContent=o},3000)}
+function act(a,b){const[k,v]=a.split(":"),id=+v;
+ if(k==="tab"){tab=v;render();needImgs()}
+ else if(k==="df"){df=id;render()}
+ else if(k==="pick"){sel.has(id)?sel.delete(id):sel.add(id);render()}
+ else if(k==="sign")openSign();
+ else if(k==="clr")padClear();
+ else if(k==="cancel")closeMo();
+ else if(k==="ok")confirmSign();
+ else if(k==="kiosk"){kiosk=true;date=todayS();lsSet("ish_kiosk","1");subSigs();render()}
+ else if(k==="unlock")askPin();
+ else if(k==="pin"){const p=$("pi").value;api({action:"auth",pin:p}).then(r=>{if(r.ok){PIN=p;admin=true;kiosk=false;lsSet("ish_pin",p);lsSet("ish_kiosk","0");closeMo();needImgs()}else $("er").textContent=r.err||"PIN noto‘g‘ri"})}
+ else if(k==="init"){R=JSON.parse(JSON.stringify(SEED));saveR();render()}
+ else if(k==="print")prt();
+ else if(k==="rm")two(b,()=>api({action:"rmSig",pin:PIN,date,emp:id}).then(()=>{last="";load()}));
+ else if(k==="addE"){const n=$("nn").value.replace(/\s+/g," ").trim();if(!n){$("nn").focus();return}const w=$("nw").value;upd(()=>R.emps.push({id:R.next++,name:n,dept:+$("nd").value,off:w===""?null:+w,days:{}}))}
+ else if(k==="addD"){const n=$("ndn").value.trim();if(n)upd(()=>R.depts.push({id:R.next++,name:n}))}
+ else if(k==="de")two(b,()=>upd(()=>{R.emps=R.emps.filter(e=>e.id!==id)}));
+ else if(k==="dd")two(b,()=>upd(()=>{R.depts=R.depts.filter(d=>d.id!==id)}))}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&!b.disabled)act(b.dataset.a,b)});
+document.addEventListener("input",e=>{if(e.target.id==="q"){q=e.target.value;$("gc").innerHTML=grid()}});
+document.addEventListener("change",e=>{const t=e.target;if(t.id==="dt"&&t.value){date=t.value;subSigs();render();return}
+ if(!t.dataset.c||!R)return;const[k,v]=t.dataset.c.split(":"),id=+v,val=t.value;
+ if(k==="amt")upd(()=>{R.amount=Math.max(0,+val||0)});
+ else if(k==="pin"){const np=val.replace(/\D/g,"").slice(0,4);if(np.length===4)api({action:"setPin",pin:PIN,newPin:np}).then(r=>{if(r.ok){PIN=np;lsSet("ish_pin",np)}})}
+ else if(k==="dr"){if(val.trim())upd(()=>{R.depts.find(d=>d.id===id).name=val.trim()})}
+ else if(k==="en"){if(val.trim())upd(()=>{emp(id).name=val.replace(/\s+/g," ").trim()})}
+ else if(k==="ed")upd(()=>{emp(id).dept=+val});
+ else if(k==="ew")upd(()=>{emp(id).off=val===""?null:+val});
+ else if(k==="eo")upd(()=>{const e=emp(id);e.days=e.days||{};e.days[date]=t.checked})});
+(async()=>{render();if(PIN){const r=await api({action:"auth",pin:PIN});if(r.ok)admin=true}await load();render()})();
+</script></body></html>
