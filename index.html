@@ -56,6 +56,7 @@ canvas{width:100%;height:auto;aspect-ratio:5/2;background:#fff;border:2px dashed
 .av{width:40px;height:40px;background:hsl(var(--h,160) 52% 42%);color:#fff;border:0;font-weight:700;font-size:16px}
 .em{transition:transform .15s,box-shadow .2s,border-color .2s,background .2s}
 .em:not(:disabled):hover{transform:translateY(-2px)}
+.em:disabled{opacity:.45}
 .nm{flex:1;min-width:0}
 .sn{display:block;font-weight:700;font-size:16px;overflow-wrap:anywhere}
 .gn{display:block;color:var(--mut);font-size:14px;overflow-wrap:anywhere}
@@ -72,7 +73,7 @@ button:not(:disabled):active{transform:scale(.97)}
 .pp{animation:pp .5s cubic-bezier(.2,1.5,.4,1)}
 .ov{animation:fd .2s}.mo{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
 .fresh .top,.fresh .tabs,.fresh .em,.fresh .r,.fresh .k,.fresh .sr,.fresh .add,.fresh h2,.fresh .tag{animation:up .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*28ms)}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{transform:none}}
 @keyframes fd{from{opacity:0}to{opacity:1}}
 @keyframes pop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:none}}
 @keyframes pp{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
@@ -82,18 +83,18 @@ button:not(:disabled):active{transform:scale(.97)}
 @page{size:A4;margin:8mm 10mm}
 html,body{background:#fff!important;color:#000!important;padding:0}
 #app,#mo{display:none!important}
-#print{display:block;width:fit-content;margin:0 auto;border:1.5px solid #000;padding:2.5mm;font-family:"Times New Roman",Times,serif;font-size:min(calc(var(--rh,7.5mm)*.8),10pt);line-height:1;color:#000}
+#print{display:block;width:fit-content;margin:0 auto;border:1.5px solid #000;padding:3mm;font-family:"Times New Roman",Times,serif;font-size:10pt;line-height:1;color:#000}
 .ph{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:2mm}
 .lg{font:800 18pt/1 Arial,Helvetica,sans-serif;color:#1c9a47;letter-spacing:.04em}
 .ph .t{font-weight:700;font-size:13pt;text-align:center}.ph .d{text-align:right;font-size:12pt}
 #print table{width:175mm;border-collapse:collapse;table-layout:fixed}
 #print thead{display:table-header-group}
-#print th,#print td{border:1px solid #000;padding:0 4px;height:var(--rh,7.5mm);overflow:hidden;white-space:nowrap}
+#print th,#print td{border:1px solid #000;padding:0 4px;height:7.5mm;overflow:hidden;white-space:nowrap}
 #print th{text-align:center}
 #print tr{break-inside:avoid}
 #print .n{width:10mm}#print .f{width:78mm}#print .s{width:24mm}#print .m{width:16mm}
 #print td:first-child{text-align:center}#print td:nth-child(3){text-align:right}#print td:nth-child(5){text-align:center;font-weight:700}
-#print td img{height:calc(var(--rh,7.5mm) - .9mm);max-width:42mm;display:block;margin:0 auto}
+#print td img{height:6.5mm;max-width:42mm;display:block;margin:0 auto}
 #print td.dp{background:#e6e6e6;text-align:center;font-weight:700}#print tr.o td{background:#eee;color:#444}
 .pf{margin-top:3mm;display:flex;justify-content:space-between;font-weight:700;font-size:11pt;break-inside:avoid}
 }
@@ -124,11 +125,14 @@ const fdate=()=>date.split("-").reverse().join(".");
 const emp=id=>R.emps.find(e=>e.id===id);
 const SUF=/^(qizi|o‘g‘li|o'g'li|og‘li|ogli|ugli|угли|ўғли|қизи|кизи|оглы)$/i;
 const cap=w=>w.charAt(0).toUpperCase()+w.slice(1);
-const fn=n=>String(n).trim().split(/\s+/).map(w=>SUF.test(w)?w.toLowerCase():cap(w)).join(" ");
-const nmH=n=>{const w=String(n).trim().split(/\s+/);return `<b class="sn">${esc(cap(w[0]||""))}</b><span class="gn">${w.slice(1).map(x=>SUF.test(x)?`<i class="pt">${esc(x.toLowerCase())}</i>`:esc(cap(x))).join(" ")}</span>`};
+const fo=n=>String(n).trim().split(/\s+/).map(w=>SUF.test(w)?w.toLowerCase():cap(w)).join(" ");
+const parts=n=>{const w=String(n).trim().split(/\s+/).map(x=>SUF.test(x)?x.toLowerCase():cap(x));if(w.length<2||/^\d/.test(w[1]))return{a:w.join(" "),b:""};return{a:w[1]+" "+w[0],b:w.slice(2).join(" ")}};
+const sh=n=>parts(n).a;
+const fn=n=>{const p=parts(n);return(p.a+" "+p.b).trim()};
+const nmH=n=>{const p=parts(n);return `<b class="sn">${esc(p.a)}</b><span class="gn">${esc(p.b)}</span>`};
 const hue=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))%360;return h};
 const ini=n=>String(n).trim().charAt(0).toUpperCase();
-const nmOf=id=>{const e=R&&R.emps.find(x=>x.id===id);return e?fn(e.name):""};
+const nmOf=id=>{const e=R&&R.emps.find(x=>x.id===id);return e?sh(e.name):""};
 const dn=id=>{const d=R.depts.find(d=>d.id===id);return d?d.name:""};
 const wopts=s=>'<option value="">Haftalik dam yo‘q</option>'+ORD.map(d=>`<option value="${d}"${s===d?" selected":""}>${WD[d]}</option>`).join("");
 const dopts=s=>R.depts.map(d=>`<option value="${d.id}"${s===d.id?" selected":""}>${esc(d.name)}</option>`).join("");
@@ -168,7 +172,7 @@ function payView(){const B={};payRows.forEach(x=>{const k=x.date+"_"+x.ts;(B[k]=
  Object.values(B).sort((a,b)=>a.date===b.date?a.ts-b.ts:(a.date<b.date?1:-1)).forEach(b=>{
   if(b.date!==cd){cd=b.date;h+=`<h2>${cd===todayS()?"Bugun":cd.split("-").reverse().join(".")}</h2>`}
   const on=b.rows.every(x=>psel.has(x.date+"_"+x.emp)),sum=b.rows.reduce((a,x)=>a+Number(x.amt),0),who=(b.rows.find(x=>x.emp===b.by)||b.rows[0]).name;
-  h+=`<button class="em ${on?"sel":""}" style="width:100%;margin-bottom:8px;align-items:flex-start" data-a="pb:${b.date}_${b.ts}"><span class="ck">${on?"✓":""}</span><span style="flex:1"><b>Pulni oladi: ${esc(fn(who))}</b><small>${b.rows.length} kishi uchun, ${hm(b.ts)}</small><span class="tags" style="display:flex;margin-top:8px;font-weight:500">${b.rows.map(x=>`<span class="tag">${nmH(x.name)}<i>${fmt(x.amt)}</i></span>`).join("")}</span></span><b>${fmt(sum)} so‘m</b></button>`});
+  h+=`<button class="em ${on?"sel":""}" style="width:100%;margin-bottom:8px;align-items:flex-start" data-a="pb:${b.date}_${b.ts}"><span class="ck">${on?"✓":""}</span><span style="flex:1"><b>Pulni oladi: ${esc(sh(who))}</b><small>${b.rows.length} kishi uchun, ${hm(b.ts)}</small><span class="tags" style="display:flex;margin-top:8px;font-weight:500">${b.rows.map(x=>`<span class="tag">${nmH(x.name)}<i>${fmt(x.amt)}</i></span>`).join("")}</span></span><b>${fmt(sum)} so‘m</b></button>`});
  return h}
 function reqView(){if(!reqs.length)return '<p class="sub">Yangi so‘rovlar yo‘q.</p>';return reqs.map(q=>`<div class="sr"><input data-c="rq" id="rq${q.id}" value="${esc(q.name)}"><select data-c="rq" id="rqd${q.id}">${dopts(q.dept)}</select><button class="pri" data-a="ap:${q.id}">Tasdiqlash</button><button class="d" data-a="rj:${q.id}">Rad etish</button></div>`).join("")}
 function archView(){if(!daysList.length)return '<p class="sub">Arxiv bo‘sh.</p>';return daysList.map(d=>`<div class="r"><div><b>${d.date.split("-").reverse().join(".")}</b> ${WD[new Date(d.date+"T12:00:00").getDay()]}<p class="sub" style="margin:0">${d.n} kishi, ${fmt(d.sum)} so‘m. To‘langan: ${d.paidN} (${fmt(d.paidSum)})${d.n>d.paidN?`. <span style="color:var(--dan)">To‘lanmagan: ${d.n-d.paidN} (${fmt(d.sum-d.paidSum)})</span>`:""}${d.closed?"":". Kun ochiq"}</p></div><button data-a="op:${d.date}">Ochish</button></div>`).join("")}
@@ -183,7 +187,7 @@ function render(){
 }
 const chk=()=>{const o=$("ok");if(o)o.disabled=!(inkOn&&(sids.length<2||sby))};
 function openSign(){const ids=[...sel].filter(i=>!sigs[i]);if(!ids.length)return;sids=ids;sby=ids[0];inkOn=false;
- $("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Imzo qo‘ying</h3><p class="sub" style="margin:0 0 10px">${ids.map(i=>esc(fn(emp(i).name))).join(", ")}<br><b>Olinadigan summa: ${fmt(ids.length*amt())} so‘m</b></p>${ids.length>1?`<p class="sub" style="margin:6px 0 8px"><b>Pulni oladi:</b> ${esc(fn(emp(ids[0]).name))} (birinchi tanlangan)</p>`:""}<canvas id="cv" width="600" height="240"></canvas><p class="er" id="er"></p><div class="acts"><button data-a="clr">Tozalash</button><button data-a="cancel">Bekor qilish</button><button class="pri" id="ok" data-a="ok" disabled>Tasdiqlash</button></div></div></div>`;
+ $("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Imzo qo‘ying</h3><p class="sub" style="margin:0 0 10px">${ids.map(i=>esc(sh(emp(i).name))).join(", ")}<br><b>Olinadigan summa: ${fmt(ids.length*amt())} so‘m</b></p>${ids.length>1?`<p class="sub" style="margin:6px 0 8px"><b>Pulni oladi:</b> ${esc(sh(emp(ids[0]).name))} (birinchi tanlangan)</p>`:""}<canvas id="cv" width="600" height="240"></canvas><p class="er" id="er"></p><div class="acts"><button data-a="clr">Tozalash</button><button data-a="cancel">Bekor qilish</button><button class="pri" id="ok" data-a="ok" disabled>Tasdiqlash</button></div></div></div>`;
  const c=$("cv"),x=c.getContext("2d");x.lineWidth=4;x.lineCap=x.lineJoin="round";x.strokeStyle="#111";let dr=false,ink=false,lx,ly;
  const P=v=>{const r=c.getBoundingClientRect();return[(v.clientX-r.left)*c.width/r.width,(v.clientY-r.top)*c.height/r.height]};
  c.onpointerdown=v=>{dr=true;c.setPointerCapture(v.pointerId);[lx,ly]=P(v)};
@@ -199,8 +203,7 @@ async function confirmSign(){const img=small($("cv")),ids=[...sel].filter(i=>!si
 function askPin(){$("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Admin PIN</h3><input id="pi" type="password" inputmode="numeric" maxlength="4" style="width:100%;font-size:24px;text-align:center"><p class="er" id="er"></p><div class="acts"><button data-a="cancel">Bekor qilish</button><button class="pri" data-a="pin">Kirish</button></div></div></div>`;$("pi").focus()}
 async function prt(){await needImgs(true);let h="",n=0,sum=0,got=0;
  R.depts.forEach(d=>{const L=R.emps.filter(e=>e.dept===d.id);if(!L.length)return;h+=`<tr><td class="dp" colspan="5">${esc(d.name)}</td></tr>`;
-  L.forEach(e=>{n++;const s=sigs[e.id],o=isOff(e)&&!s;if(s){got++;sum+=s.amt}h+=`<tr class="${o?"o":""}"><td>${n}</td><td>${esc(fn(e.name))}</td><td>${s?fmt(s.amt):""}</td><td>${s&&s.img?`<img src="${s.img}" alt="">`:""}</td><td>${o?"Дам":""}</td></tr>`})});
- const rows=n+R.depts.filter(d=>R.emps.some(e=>e.dept===d.id)).length+1;$("print").style.setProperty("--rh",Math.max(3,Math.min(7.5,247/rows-.3)).toFixed(2)+"mm");
+  L.forEach(e=>{n++;const s=sigs[e.id],o=isOff(e)&&!s;if(s){got++;sum+=s.amt}h+=`<tr class="${o?"o":""}"><td>${n}</td><td>${esc(fo(e.name))}</td><td>${s?fmt(s.amt):""}</td><td>${s&&s.img?`<img src="${s.img}" alt="">`:""}</td><td>${o?"Дам":""}</td></tr>`})});
  $("print").innerHTML=`<div class="ph"><div class="lg">ISHONCH</div><div class="t">Тушлик Пули</div><div class="d">Сана: <u>${fdate()}</u></div></div><table><thead><tr><th class="n">№</th><th class="f">ФИО</th><th class="s">Сумма</th><th>Имзо</th><th class="m">Дам</th></tr></thead><tbody>${h}</tbody></table><div class="pf"><span>Olganlar: ${got} ta</span><span>Jami: ${fmt(sum)} so‘m</span></div>`;
  setTimeout(()=>window.print(),300)}
 function two(b,fn){if(b.dataset.s){fn();return}b.dataset.s=1;const o=b.textContent;b.textContent="Aniqmi?";setTimeout(()=>{b.dataset.s="";b.textContent=o},3000)}
