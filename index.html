@@ -96,6 +96,27 @@ button:not(:disabled):active{transform:scale(.97)}
 .em.mob{border-color:#5b7cfa;background:color-mix(in srgb,#5b7cfa 10%,var(--card))}
 .bd.pn{background:#5b7cfa;color:#fff}
 .bd.ml{background:#c9892b;color:#fff}
+.lgn{max-width:360px;margin:5vh auto 0}
+.lgh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
+.lgh h1{font-size:24px}
+.kd{display:flex;gap:16px;justify-content:center;margin:16px 0 8px}
+.kd i{width:16px;height:16px;border-radius:50%;border:2px solid var(--mut);transition:background .15s,transform .15s,border-color .15s}
+.kd i.f{background:var(--ac);border-color:var(--ac);transform:scale(1.18)}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:320px;margin:14px auto 6px}
+.kp button{min-height:70px;font-size:26px;font-weight:600;border-radius:20px;padding:0;touch-action:manipulation}
+.kp button.kx{font-size:24px}
+.kp button.pri{font-size:17px}
+.a2box{display:grid;gap:8px;border:1px dashed var(--ac);border-radius:14px;padding:12px}
+.spin{width:22px;height:22px;border:3px solid color-mix(in srgb,currentColor 25%,transparent);border-top-color:var(--ac);border-radius:50%;animation:sp .8s linear infinite;display:inline-block;vertical-align:-5px}
+.spin.l{width:44px;height:44px;border-width:4px;display:block;margin:0 auto}
+.spin.s{width:16px;height:16px;border-width:2.5px;border-top-color:currentColor}
+.sks{display:grid;gap:12px;margin-top:10px}
+.sk{height:68px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(90deg,var(--card) 25%,color-mix(in srgb,var(--ink) 9%,var(--card)) 50%,var(--card) 75%);background-size:300% 100%;animation:shm 1.3s ease-in-out infinite}
+#pb{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:3px;z-index:60;display:none;overflow:hidden}
+#pb::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:var(--ac);border-radius:3px;animation:pbm 1s ease-in-out infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes shm{from{background-position:100% 0}to{background-position:-100% 0}}
+@keyframes pbm{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
 #print{display:none}
 @media print{
 @page{size:A4;margin:8mm 10mm}
@@ -118,7 +139,7 @@ html,body{background:#fff!important;color:#000!important;padding:0}
 }
 </style></head>
 <body>
-<div id="app"></div><div id="mo"></div><div id="print"></div>
+<div id="app"></div><div id="mo"></div><div id="print"></div><div id="pb"></div>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -129,8 +150,10 @@ const todayS=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()
 const hm=t=>{const d=new Date(t);return pad(d.getHours())+":"+pad(d.getMinutes())};
 const API="https://script.google.com/macros/s/AKfycbz9b-JbjM6fXPb5Y0a9U1T_jN7qOcH6F2Owd2sRWnTLYhHQx4axBc27G_pFlhyqNZdJ/exec";
 const SEED={"amount":30000,"next":1000,"depts":[{"id":1,"name":"Савдо дукони бошқарув"},{"id":2,"name":"Савдо дукони умумий бўлим"},{"id":3,"name":"Коллаборация бўлими"},{"id":4,"name":"Савдо дукони товарлар билан ишлаш бўлими"},{"id":5,"name":"Савдо дукони ундирув бўлими"},{"id":6,"name":"Савдо дукони реклама бўлими"},{"id":7,"name":"Хужалик бўлими"}],"emps":[{"id":1,"name":"Abdusharofov Zohidjon Abdushukurovich","dept":1,"off":null,"days":{}},{"id":2,"name":"Мусаев Алишер Зокир угли","dept":2,"off":null,"days":{}},{"id":3,"name":"Мирзабеков Худойберди Абдухомидович","dept":2,"off":null,"days":{}},{"id":4,"name":"Ходжирахматова Дилфуза Абдурашидовна","dept":2,"off":6,"days":{}},{"id":5,"name":"Акбаралиева Мадина","dept":2,"off":null,"days":{}},{"id":6,"name":"Бухарбаева Фарида Эскелдиевна","dept":2,"off":null,"days":{}},{"id":7,"name":"Рахимова Садорат Аблулложоновна","dept":2,"off":null,"days":{}},{"id":8,"name":"Жабборова Махлиё","dept":2,"off":null,"days":{}},{"id":9,"name":"Рузматова Мадина","dept":2,"off":null,"days":{}},{"id":10,"name":"Исмоилова Шахло","dept":2,"off":null,"days":{}},{"id":11,"name":"Ibragimova Zuxraxon Anvarjon Qizi","dept":2,"off":null,"days":{}},{"id":12,"name":"Yigitaliyeva Nilufar Nuriddin Qizi","dept":2,"off":null,"days":{}},{"id":13,"name":"Мухаммаджонов Сардорбек","dept":3,"off":4,"days":{}},{"id":14,"name":"Абдураимов Авазбек","dept":3,"off":2,"days":{}},{"id":15,"name":"Рахмонбердиев Шахбоз","dept":3,"off":null,"days":{}},{"id":16,"name":"Гуломов Самандар","dept":3,"off":3,"days":{}},{"id":17,"name":"Berdiqulov Javoxir Baxodir-ug‘li","dept":3,"off":null,"days":{}},{"id":18,"name":"Solijonov Ulug‘bek Saparali-o‘g‘li","dept":3,"off":null,"days":{}},{"id":19,"name":"Саримсоков Ботирали","dept":3,"off":null,"days":{}},{"id":20,"name":"Ismoilov Murodjon","dept":3,"off":null,"days":{}},{"id":21,"name":"Мовлианкулов Жасур","dept":4,"off":null,"days":{}},{"id":22,"name":"Бердиев Абдурашид Абдугапор Угли","dept":4,"off":null,"days":{}},{"id":23,"name":"Mamasoliyev Javlon","dept":4,"off":null,"days":{}},{"id":24,"name":"Уразкулов Сардор","dept":4,"off":null,"days":{}},{"id":25,"name":"Ахмедов Бахром","dept":4,"off":null,"days":{}},{"id":26,"name":"G‘ulomjonov Muxammadali Dilshodbek O‘g‘li","dept":4,"off":null,"days":{}},{"id":27,"name":"Уразкулов Убайдулло","dept":4,"off":null,"days":{}},{"id":28,"name":"Карабаев Фарход","dept":4,"off":null,"days":{}},{"id":29,"name":"Ахмедов Шерзод","dept":5,"off":null,"days":{}},{"id":30,"name":"Маматурсунов Ориф","dept":5,"off":null,"days":{}},{"id":31,"name":"Зарифов Соибжон Ёкибжон Угли","dept":5,"off":null,"days":{}},{"id":32,"name":"Олимов Санжар","dept":5,"off":null,"days":{}},{"id":33,"name":"Курбонов Мамуржон","dept":5,"off":null,"days":{}},{"id":34,"name":"Ўринбоев Алишер","dept":5,"off":null,"days":{}},{"id":35,"name":"Шарипов Зариф","dept":5,"off":null,"days":{}},{"id":36,"name":"Саидмуратова Шахноза","dept":5,"off":null,"days":{}},{"id":37,"name":"Пирматов Атхам","dept":5,"off":null,"days":{}},{"id":38,"name":"Ziyamidinov Iskandar Anvarovich","dept":5,"off":null,"days":{}},{"id":39,"name":"Kuliyev Boburjon Bobojon O‘g‘li","dept":5,"off":null,"days":{}},{"id":40,"name":"Kuzibayev Ikram Shavkatovich","dept":5,"off":null,"days":{}},{"id":41,"name":"Norbayev Elyor Baxtiyor O‘g‘li","dept":5,"off":null,"days":{}},{"id":42,"name":"Ruzimatov Ibromximjon","dept":5,"off":null,"days":{}},{"id":43,"name":"Karabayev Xasan Aliyor O‘g‘li","dept":5,"off":null,"days":{}},{"id":44,"name":"Kamolov Shoxrux Abduraxmonovich","dept":5,"off":null,"days":{}},{"id":45,"name":"Ibragimov Abdumalik Abduganiyevich","dept":5,"off":null,"days":{}},{"id":46,"name":"Saydinov Rustam Akramovich","dept":5,"off":null,"days":{}},{"id":47,"name":"Mirzabekova Dinora Ruzimurod Qizi","dept":5,"off":null,"days":{}},{"id":48,"name":"Azizov Ulug‘bek Abduzokirovich","dept":5,"off":null,"days":{}},{"id":49,"name":"Norinbekov Boxodirjon Muxtorjonovich","dept":5,"off":null,"days":{}},{"id":50,"name":"Abdulxayev Javoxir","dept":5,"off":null,"days":{}},{"id":51,"name":"Turdiboyev Bekzod Jaxongir-o‘g‘li","dept":5,"off":null,"days":{}},{"id":52,"name":"Хакимов Комрон Шерзод Угли","dept":6,"off":5,"days":{}},{"id":53,"name":"Abdushukurov Suxrob Shokir O‘g‘li","dept":6,"off":null,"days":{}},{"id":54,"name":"Нуридтинова Шахзода","dept":6,"off":null,"days":{}},{"id":55,"name":"Qayumova Shaxnoza Abdurashid Qizi","dept":6,"off":null,"days":{}},{"id":56,"name":"Arifova Shoira Jahongir Qizi","dept":6,"off":null,"days":{}},{"id":57,"name":"Gulmuradova Feruza","dept":6,"off":null,"days":{}},{"id":58,"name":"Sultonova Feruza Xuseyin Qizi","dept":6,"off":null,"days":{}},{"id":59,"name":"Ўтанбаева Мунажот Тажикуловна","dept":7,"off":null,"days":{}}]};
-let meal="o",me=null,MY=null,myPin="",pins={},selfMeal="o",byOk=true,tsel=new Set(),lastVK="",sby=0,inkOn=false,sids=[],closed=false,reqs=[],payRows=[],daysList=[],psel=new Set(),lastPay="",lastToday=todayS(),R=null,sigs={},imgs={},last="",loaded=false,errMsg="",PIN="",admin=false,kiosk=false,tab="sign",date=todayS(),sel=new Set(),q="",df=0,padClear=()=>{};
-async function api(p){const c=new AbortController(),t=setTimeout(()=>c.abort(),20000);try{const r=await fetch(API,{method:"POST",body:JSON.stringify(p),signal:c.signal});clearTimeout(t);return await r.json()}catch(e){clearTimeout(t);return{ok:false,err:"Aloqa xatosi: "+(e&&e.name==="AbortError"?"javob kelmadi (20 soniya)":(e&&e.message)||"noma’lum")}}}
+let A2=false,a2ids=[],PIN2="",closedA=false,closedB=false,pend=0,booting=false,kp="",kpMode="login",kpBusy=false,meal="o",me=null,MY=null,myPin="",pins={},selfMeal="o",byOk=true,tsel=new Set(),lastVK="",sby=0,inkOn=false,sids=[],closed=false,reqs=[],payRows=[],daysList=[],psel=new Set(),lastPay="",lastToday=todayS(),R=null,sigs={},imgs={},last="",loaded=false,errMsg="",PIN="",admin=false,kiosk=false,tab="sign",date=todayS(),sel=new Set(),q="",df=0,padClear=()=>{};
+const pbs=()=>{const b=$("pb");if(b)b.style.display=pend>0?"block":"none"};
+async function api(p){const quiet=["state","unpaid","mystate","imgs"].indexOf(p.action)>=0;if(!quiet){pend++;pbs()}try{return await api0(p)}finally{if(!quiet){pend--;pbs()}}}
+async function api0(p){const c=new AbortController(),t=setTimeout(()=>c.abort(),20000);try{const r=await fetch(API,{method:"POST",body:JSON.stringify(p),signal:c.signal});clearTimeout(t);return await r.json()}catch(e){clearTimeout(t);return{ok:false,err:"Aloqa xatosi: "+(e&&e.name==="AbortError"?"javob kelmadi (20 soniya)":(e&&e.message)||"noma’lum")}}}
 const small=c=>{const o=document.createElement("canvas");o.width=400;o.height=160;o.getContext("2d").drawImage(c,0,0,400,160);return o.toDataURL("image/png")};
 try{kiosk=localStorage.getItem("ish_kiosk")==="1";PIN=localStorage.getItem("ish_pin")||""}catch(e){}
 const TN={auto:"avto",light:"yorug‘",dark:"qorong‘i"};let T="auto";try{T=localStorage.getItem("ish_theme")||"auto"}catch(e){}
@@ -150,25 +173,26 @@ const fn=n=>{const p=parts(n);return(p.a+" "+p.b).trim()};
 const nmH=n=>{const p=parts(n);return `<b class="sn">${esc(p.a)}</b><span class="gn">${esc(p.b)}</span>`};
 const hue=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))%360;return h};
 const ini=n=>String(n).trim().charAt(0).toUpperCase();
+const inSc=d=>admin?(A2?a2ids.includes(d):!a2ids.includes(d)):true;
 const kx=x=>x.date+"_"+x.emp+(x.meal==="k"?"k":"");
 const mealBar=()=>R&&R.dinner?`<div class="chips"><button class="${meal==="o"?"on":""}" data-a="meal:o">Obet</button><button class="${meal==="k"?"on":""}" data-a="meal:k">Kechki ovqat</button></div>`:"";
 const msg=t=>{const m=$("pinmsg");if(m)m.textContent=t};
 const nmOf=id=>{const e=R&&R.emps.find(x=>x.id===id);return e?sh(e.name):""};
 const dn=id=>{const d=R.depts.find(d=>d.id===id);return d?d.name:""};
 const wopts=s=>'<option value="">Haftalik dam yo‘q</option>'+ORD.map(d=>`<option value="${d}"${s===d?" selected":""}>${WD[d]}</option>`).join("");
-const dopts=s=>R.depts.map(d=>`<option value="${d.id}"${s===d.id?" selected":""}>${esc(d.name)}</option>`).join("");
+const dopts=s=>R.depts.filter(d=>!A2||inSc(d.id)||d.id===s).map(d=>`<option value="${d.id}"${s===d.id?" selected":""}>${esc(d.name)}</option>`).join("");
 const saveR=()=>{api({action:"saveRoster",pin:PIN,roster:R}).then(r=>{if(!r.ok)alert(r.err||"Saqlanmadi");else last=""})};
 const upd=fn=>{fn();saveR();render()};
 function subSigs(){last="";sigs={};tsel.clear();load()}
-async function load(){if(me)return loadMe();const r=await api({action:"state",date,pin:admin?PIN:"",meal});if(!r.ok){errMsg=r.err||"Xato";if(!loaded)render();return}
- const s=JSON.stringify(r);if(s===last)return;last=s;errMsg="";loaded=true;closed=!!r.closed;reqs=r.reqs||[];R=r.roster&&r.roster.depts?r.roster:null;sigs={};(r.sigs||[]).forEach(x=>{x.img=imgs[date+"_"+x.emp+"_"+x.ts];sigs[x.emp]=x});
+async function load(){if(me)return loadMe();if(!admin&&!kiosk)return;const r=await api({action:"state",date,pin:admin?PIN:"",meal});if(!r.ok){errMsg=r.err||"Xato";if(!loaded)render();return}
+ const s=JSON.stringify(r);if(s===last)return;last=s;errMsg="";loaded=true;closed=!!r.closed;closedA=!!r.closedA;closedB=!!r.closedB;a2ids=r.a2||[];if(r.pin2!==undefined)PIN2=r.pin2;reqs=r.reqs||[];R=r.roster&&r.roster.depts?r.roster:null;sigs={};(r.sigs||[]).forEach(x=>{x.img=imgs[date+"_"+x.emp+"_"+x.ts];sigs[x.emp]=x});
  const a=document.activeElement;if(!(a&&a.dataset&&a.dataset.c))render();needImgs()}
 async function needImgs(f){if(!f&&(!admin||kiosk||tab!=="today"))return;const miss=Object.values(sigs).filter(s=>!s.img).map(s=>s.emp);if(!miss.length)return;const r=await api({action:"imgs",pin:PIN,date,emps:miss,meal});if(!r.ok)return;Object.values(sigs).forEach(s=>{const m=r.imgs[s.emp];if(m){imgs[date+"_"+s.emp+"_"+s.ts]=m;s.img=m}});render()}
 async function loadPay(){if(!admin||kiosk)return;const q=await api({action:"unpaid",pin:PIN});if(!q.ok)return;const j=JSON.stringify(q.rows);if(j===lastPay)return;lastPay=j;payRows=q.rows;psel=new Set([...psel].filter(k=>payRows.some(x=>kx(x)===k)));render()}
 async function loadDays(){const q=await api({action:"days",pin:PIN});if(q.ok){daysList=q.days;render()}}
 async function loadPins(){const q=await api({action:"pins",pin:PIN});if(q.ok){pins=q.pins;render()}}
-async function loadMe(){const q=await api({action:"mystate",pin:myPin});if(!q.ok){if(/PIN|xato/.test(q.err||"")){me=null;MY=null;myPin="";try{sessionStorage.removeItem("ish_my")}catch(e){}}errMsg=q.err||"";render();return}MY=q;me=q.emp;render()}
-function askMy(){$("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Mening PIN kodim</h3><p class="sub" style="margin:0 0 10px">Sizga berilgan 4 raqamli PIN kodni kiriting.</p><input id="pi" type="password" inputmode="numeric" maxlength="4" style="width:100%;font-size:24px;text-align:center"><p class="er" id="er"></p><div class="acts"><button data-a="cancel">Bekor qilish</button><button class="pri" data-a="myok">Kirish</button></div></div></div>`;$("pi").focus()}
+async function loadMe(){const q=await api({action:"mystate",pin:myPin});if(!q.ok){if(/PIN|xato/.test(q.err||"")){me=null;MY=null;myPin="";try{localStorage.removeItem("ish_my")}catch(e){}}errMsg=q.err||"";render();return}MY=q;me=q.emp;render()}
+function askMy(){kp="";kpMode="my";$("mo").innerHTML=`<div class="ov"><div class="mo" style="text-align:center"><h3>Mening PIN kodim</h3><div id="kpad">${keypad()}</div><div class="acts" style="justify-content:center"><button data-a="cancel">Bekor qilish</button></div></div></div>`}
 function meView(){const m=MY;if(!m)return '<p class="sub">Yuklanmoqda…</p>';
  const ML=[["o","Obet (tushlik)",m.amount,m.o]];if(m.dinner)ML.push(["k","Kechki ovqat",m.dinnerAmt,m.k]);
  return `<div class="mw"><span class="ck av" style="--h:${hue(m.emp.name)};width:52px;height:52px;font-size:22px">${esc(ini(m.emp.name))}</span><div class="nm">${nmH(m.emp.name)}</div></div>`+ML.map(x=>{const t=x[3];let st="",btn="";
@@ -180,28 +204,47 @@ function meView(){const m=MY;if(!m)return '<p class="sub">Yuklanmoqda…</p>';
   return `<div class="mc"><h2>${x[1]}: ${fmt(x[2])} so‘m</h2>${st?`<p class="st">${st}${t?" ("+hm(t.ts)+")":""}</p>`:""}${btn}</div>`}).join("")}
 function openSelf(m){selfMeal=m;sids=[me.id];sby=me.id;inkOn=false;byOk=true;const a=m==="k"?MY.dinnerAmt:MY.amount;
  $("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Imzo qo‘ying</h3><p class="sub" style="margin:0 0 10px">${m==="k"?"Kechki ovqat":"Obet"}: <b>${fmt(a)} so‘m</b></p><canvas id="cv" width="600" height="240"></canvas><p class="er" id="er"></p><div class="acts"><button data-a="clr">Tozalash</button><button data-a="cancel">Bekor qilish</button><button class="pri off" id="ok" data-a="mysign">Tasdiqlash</button></div></div></div>`;initPad()}
-async function confirmSelf(){const img=small($("cv"));$("ok").classList.add("off");$("ok").textContent="Saqlanmoqda";
+async function confirmSelf(){const img=small($("cv"));$("ok").classList.add("off");$("ok").innerHTML='<span class="spin s"></span> Saqlanmoqda';
  const q=await api({action:"selfSign",pin:myPin,meal:selfMeal,img});
  if(!q.ok){$("ok").textContent="Tasdiqlash";chk();hint(q.err||"Saqlab bo‘lmadi");return}
  $("mo").innerHTML=`<div class="ov"><div class="mo" style="text-align:center"><div class="pp" style="font-size:56px;color:var(--ac)">✓</div><h3>Imzo qabul qilindi</h3><p>To‘lov bo‘limiga mobil ilovadan yuborildi: <b>${fmt(q.total)} so‘m</b></p><p class="sub" style="margin:0 0 10px">Admin tasdiqlagach kassadan oling.</p><button class="pri" data-a="cancel">Yopish</button></div></div>`;loadMe()}
+const keypad=()=>`<div class="kd">${[0,1,2,3].map(i=>`<i class="${i<kp.length?"f":""}"></i>`).join("")}</div><p class="er" id="er" style="text-align:center;min-height:22px;margin:0"></p><div class="kp">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-a="kd:${n}">${n}</button>`).join("")}<button class="kx" data-a="kb" aria-label="O‘chirish">⌫</button><button data-a="kd:0">0</button><button class="pri" data-a="ke">Enter</button></div>`;
+const loginView=()=>`<div class="lgn" id="lgn"><div class="lgh"><h1>Tushlik puli</h1><button data-a="theme">Tema: ${TN[T]}</button></div><p class="sub" style="margin:0 0 4px;text-align:center">PIN kodingizni kiriting</p>${keypad()}</div>`;
+const kpLd=on=>{const b=document.querySelector(".kp .pri");if(b)b.innerHTML=on?'<span class="spin s"></span>':"Enter"};
+const kpUpd=()=>document.querySelectorAll(".kd i").forEach((x,i)=>x.classList.toggle("f",i<kp.length));
+const kpErr=m=>{const e=$("er");if(e)e.textContent=m;if(m){const d=document.querySelector(".kd");if(d){d.classList.remove("shake");void d.offsetWidth;d.classList.add("shake")}}};
+function submitKp(){if(kp.length<4){kpErr("4 ta raqam kiriting");return}const p=kp;if(kpMode==="login")doLogin(p);else if(kpMode==="unlock")doUnlock(p);else if(kpMode==="my")doMy(p)}
+async function doLogin(p){if(kpBusy)return;kpBusy=true;kpLd(1);const q=await api({action:"login",pin:p});kpBusy=false;kpLd(0);
+ if(!q.ok){kp="";kpUpd();kpErr(q.err||"PIN noto‘g‘ri");return}
+ kp="";
+ if(q.role==="admin"||q.role==="admin2"){PIN=p;admin=true;A2=q.role==="admin2";me=null;MY=null;myPin="";lsSet("ish_pin",p);lsSet("ish_my","");lsSet("ish_kiosk","0");kiosk=false}
+ else{myPin=p;MY=q;me=q.emp;admin=false;A2=false;PIN="";lsSet("ish_my",p);lsSet("ish_pin","")}
+ date=todayS();last="";render();await load();loadPay();render()}
+async function doUnlock(p){if(kpBusy)return;kpBusy=true;kpLd(1);const q=await api({action:"login",pin:p});kpBusy=false;kpLd(0);
+ if(q.ok&&(q.role==="admin"||q.role==="admin2")){PIN=p;admin=true;A2=q.role==="admin2";kiosk=false;me=null;MY=null;myPin="";lsSet("ish_pin",p);lsSet("ish_my","");lsSet("ish_kiosk","0");kp="";closeMo();last="";load();loadPay()}
+ else{kp="";kpUpd();kpErr(q.ok?"Bu admin PIN kodi emas":(q.err||"PIN noto‘g‘ri"))}}
+async function doMy(p){if(kpBusy)return;kpBusy=true;kpLd(1);const q=await api({action:"login",pin:p});kpBusy=false;kpLd(0);
+ if(q.ok&&q.role==="emp"){myPin=p;MY=q;me=q.emp;kp="";closeMo()}
+ else{kp="";kpUpd();kpErr(q.ok?"Bu admin PIN kodi. «Admin» tugmasini bosing.":(q.err||"PIN noto‘g‘ri"))}}
+document.addEventListener("keydown",e=>{if(!$("lgn")&&!$("kpad"))return;if(/^\d$/.test(e.key))act("kd:"+e.key);else if(e.key==="Backspace")act("kb");else if(e.key==="Enter")act("ke")});
 function askReq(){$("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Yangi xodim so‘rovi</h3><p class="sub" style="margin:0 0 10px">So‘rov adminga boradi. Admin tasdiqlagach ismingiz ro‘yxatga qo‘shiladi.</p><input id="rn" placeholder="Familiya Ism Sharif" style="width:100%;margin-bottom:8px"><select id="rd" style="width:100%">${dopts(0)}</select><p class="er" id="er"></p><div class="acts"><button data-a="cancel">Bekor qilish</button><button class="pri" data-a="reqsend">Yuborish</button></div></div></div>`}
 async function sendReq(){const q=await api({action:"request",name:$("rn").value,dept:$("rd").value});if(q.ok)$("mo").innerHTML='<div class="ov"><div class="mo" style="text-align:center"><div class="pp" style="font-size:56px;color:var(--ac)">✓</div><h3>So‘rov yuborildi</h3><p>Admin tasdiqlagach ismingiz ro‘yxatda paydo bo‘ladi.</p><button class="pri" data-a="cancel">Yopish</button></div></div>';else $("er").textContent=q.err||"Yuborib bo‘lmadi"}
 setInterval(()=>{if(document.visibilityState!=="visible")return;const t=todayS();if(t!==lastToday){if(date===lastToday){date=t;sel.clear();subSigs()}lastToday=t}load();loadPay()},8000);
-function head(emp){return `<div class="top"><div><h1>Tushlik puli</h1><p class="sub">${WD[wd()]}, ${fdate()}${me?"":". Bir kishiga "+fmt(amt())+" so‘m"}</p></div><div><button data-a="theme">Tema: ${TN[T]}</button> ${emp&&!me?'<button data-a="mylogin">PIN bilan kirish</button> ':""}${me?'<button data-a="mylogout">Chiqish</button> ':""}${emp?'<button data-a="unlock">Admin</button>':""}${!emp?'<button data-a="kiosk">Xodimlar rejimi</button>':""}</div></div>`+(emp?"":`<div class="tabs">${[["sign","Imzo"],["pay","To‘lov"+(payRows.length?" ("+payRows.length+")":"")],["req","So‘rovlar"+(reqs.length?" ("+reqs.length+")":"")],["today","Bugun"],["arch","Arxiv"],["staff","Xodimlar"],["set","Sozlamalar"]].map(t=>`<button class="${tab===t[0]?"on":""}" data-a="tab:${t[0]}">${t[1]}</button>`).join("")}</div>`)}
+function head(emp){return `<div class="top"><div><h1>Tushlik puli${A2?'<span class="bd" style="margin:0 0 0 8px">Admin 2</span>':""}</h1><p class="sub">${WD[wd()]}, ${fdate()}${me?"":". Bir kishiga "+fmt(amt())+" so‘m"}</p></div><div><button data-a="theme">Tema: ${TN[T]}</button> ${emp&&!me?'<button data-a="mylogin">PIN bilan kirish</button> ':""}${me?'<button data-a="mylogout">Chiqish</button> ':""}${emp&&!me?'<button data-a="unlock">Admin</button>':""}${!emp?'<button data-a="kiosk">Xodimlar rejimi</button> <button data-a="logout">Chiqish</button>':""}</div></div>`+(emp?"":`<div class="tabs">${[["sign","Imzo"],["pay","To‘lov"+(payRows.length?" ("+payRows.length+")":"")],["req","So‘rovlar"+(reqs.length?" ("+reqs.length+")":"")],["today","Bugun"],["arch","Arxiv"],["staff","Xodimlar"],["set","Sozlamalar"]].filter(t=>!A2||(t[0]!=="staff"&&t[0]!=="set")).map(t=>`<button class="${tab===t[0]?"on":""}" data-a="tab:${t[0]}">${t[1]}</button>`).join("")}</div>`)}
 function card(e,i){const s=sigs[e.id],o=isOff(e),on=sel.has(e.id);
  let st="";if(s){const by=s.by&&s.by!==e.id?nmOf(s.by):"";st=s.paid?"To‘langan, "+(by?"pulni oldi: "+by:"o‘zi oldi"):"Imzo qo‘yilgan, to‘lov kutilmoqda"+(by?" ("+by+" oladi)":"");st+=", "+hm(s.ts)}else if(e.inactive)st="Nofaol";else if(o)st="Dam kuni";
  return `<button class="em ${s?"tk":on?"sel":""}" style="--i:${Math.min(i||0,14)}" ${s||o||e.inactive?(admin&&!kiosk?'data-dis="1"':"disabled"):""} data-a="pick:${e.id}"><span class="ck av" style="--h:${hue(e.name)}">${s||on?"✓":esc(ini(e.name))}</span><span class="nm">${nmH(e.name)}${e.intern?'<span class="bd">Stajor</span>':""}${e.inactive?'<span class="bd gr">Nofaol</span>':""}${st?`<small>${esc(st)}</small>`:""}</span></button>`}
 function grid(){let h="";const t=q.trim().toLowerCase();
- R.depts.forEach(d=>{if(df&&df!==d.id)return;const L=R.emps.filter(e=>e.dept===d.id&&(!t||e.name.toLowerCase().includes(t))&&(!e.inactive||(admin&&!kiosk)));if(!L.length)return;h+=`<h2>${esc(d.name)}</h2><div class="grid">${L.map((e,i)=>card(e,i)).join("")}</div>`});
+ R.depts.forEach(d=>{if(df&&df!==d.id)return;if(!inSc(d.id))return;const L=R.emps.filter(e=>e.dept===d.id&&(!t||e.name.toLowerCase().includes(t))&&(!e.inactive||(admin&&!kiosk)));if(!L.length)return;h+=`<h2>${esc(d.name)}</h2><div class="grid">${L.map((e,i)=>card(e,i)).join("")}</div>`});
  return h||'<p class="sub">Hech kim topilmadi.</p>'}
 function bar(){const n=sel.size;return `<div class="bar"><div><b>${n?"Tanlandi: "+n:"Ismingizni tanlang"}</b><p class="sub">${n?"Jami: "+fmt(n*amt())+" so‘m":"Bir nechta xodimni tanlab, birga imzo qo‘yish mumkin"}</p></div><button class="pri" ${n&&!(closed&&(!admin||kiosk))?"":"disabled"} data-a="sign">Imzo qo‘yish</button></div>`}
-function signView(){return `${mealBar()}${admin&&!kiosk?'<p class="sub" style="margin:0 0 8px">Maslahat: xodim ustiga 1 soniya bosib turing. Stajor, nofaol, dam kuni yoki o‘chirish chiqadi.</p>':""}<input class="srch" id="q" placeholder="Ismingizni qidiring" value="${esc(q)}" autocomplete="off"><div class="chips"><button class="${df?"":"on"}" data-a="df:0">Hammasi</button>${R.depts.map(d=>`<button class="${df===d.id?"on":""}" data-a="df:${d.id}">${esc(d.name)}</button>`).join("")}</div>${closed?'<p class="er">Bu kun yakunlangan'+((!admin||kiosk)?", imzo qo‘yib bo‘lmaydi.":".")+"</p>":""}<div id="gc">${grid()}</div>${(!admin||kiosk)?'<p style="text-align:center;margin-top:24px"><button data-a="req">Ro‘yxatda yo‘qmisiz? Xodim qo‘shish so‘rovi</button></p>':""}${bar()}`}
-function todayView(){let on=0,off=0,got=0,sum=0,paidSum=0;R.emps.forEach(e=>{const s=sigs[e.id];if(s){got++;sum+=s.amt;if(s.paid)paidSum+=s.amt}else if(e.inactive){}else if(isOff(e))off++;else on++});
- const L=Object.values(sigs).sort((a,b)=>b.ts-a.ts),w=R.emps.filter(e=>!sigs[e.id]&&!isOff(e)&&!e.inactive);
+function signView(){return `${mealBar()}${admin&&!kiosk&&!A2?'<p class="sub" style="margin:0 0 8px">Maslahat: xodim ustiga 1 soniya bosib turing. Stajor, nofaol, dam kuni yoki o‘chirish chiqadi.</p>':""}<input class="srch" id="q" placeholder="Ismingizni qidiring" value="${esc(q)}" autocomplete="off"><div class="chips"><button class="${df?"":"on"}" data-a="df:0">Hammasi</button>${R.depts.filter(d=>inSc(d.id)).map(d=>`<button class="${df===d.id?"on":""}" data-a="df:${d.id}">${esc(d.name)}</button>`).join("")}</div>${closed?'<p class="er">Bu kun yakunlangan'+((!admin||kiosk)?", imzo qo‘yib bo‘lmaydi.":".")+"</p>":""}<div id="gc">${grid()}</div>${(!admin||kiosk)?'<p style="text-align:center;margin-top:24px"><button data-a="req">Ro‘yxatda yo‘qmisiz? Xodim qo‘shish so‘rovi</button></p>':""}${bar()}`}
+function todayView(){let on=0,off=0,got=0,sum=0,paidSum=0;R.emps.filter(e=>inSc(e.dept)).forEach(e=>{const s=sigs[e.id];if(s){got++;sum+=s.amt;if(s.paid)paidSum+=s.amt}else if(e.inactive){}else if(isOff(e))off++;else on++});
+ const L=Object.values(sigs).sort((a,b)=>b.ts-a.ts),w=R.emps.filter(e=>!sigs[e.id]&&!isOff(e)&&!e.inactive&&inSc(e.dept));
  return `${mealBar()}${date!==todayS()?'<p class="sub" style="margin:0 0 8px">Arxiv ko‘rinishi. <button data-a="totoday">Bugunga qaytish</button></p>':""}<label class="sub" style="margin:0">Sana <input type="date" id="dt" value="${date}"></label> <button class="pri" data-a="print">A4 hisobot (imzolar bilan)</button> <button data-a="${closed?"reopen":"close"}">${closed?"Kunni qayta ochish":"Kunni yakunlash"}</button><div class="stats"><div class="k"><small>Olganlar</small><b>${got}</b></div><div class="k"><small>Hali olmagan</small><b>${on}</b></div><div class="k"><small>Dam</small><b>${off}</b></div><div class="k"><small>To‘langan</small><b>${fmt(paidSum)}</b></div><div class="k"><small>To‘lanmagan</small><b>${fmt(sum-paidSum)}</b></div></div><div class="acts" style="justify-content:flex-start;margin:0 0 8px">${L.length?'<button data-a="tsall">Hammasini belgilash</button>':""}${tsel.size?`<button data-a="tsclr">Tanlovni tozalash</button><button class="d" data-a="tscancel">Tanlanganlarni bekor qilish (${tsel.size})</button>`:""}</div><h2>Imzolar (${L.length})</h2>${L.map((s,i)=>{const by=s.by&&s.by!==s.emp?", oluvchi: "+nmOf(s.by):"";return `<div class="r" style="--i:${Math.min(i,14)}"><input type="checkbox" ${tsel.has(s.emp)?"checked":""} data-a="ts:${s.emp}" aria-label="Tanlash">${s.img?`<img src="${s.img}" alt="imzo">`:'<span class="sub">…</span>'}<div class="nm">${nmH(s.name)}<small>${esc(dn(s.dept))}, ${hm(s.ts)}, ${fmt(s.amt)} so‘m, ${s.paid?"to‘langan":"to‘lanmagan"}${esc(by)}${s.src==="pin"?", mobil ilovadan":""}</small></div><button class="d" data-a="rm:${s.emp}">Bekor qilish</button></div>`}).join("")||'<p class="sub">Hali imzo yo‘q.</p>'}<h2>Hali olmaganlar (${w.length})</h2><div class="tags">${w.map(e=>`<span class="tag">${nmH(e.name)}</span>`).join("")||"Hammasi oldi."}</div>`}
 function staffView(){let h=`<div class="add"><input id="nn" placeholder="Yangi xodim F.I.O"><select id="nd">${dopts(R.depts[0]&&R.depts[0].id)}</select><select id="nw">${wopts(null)}</select><button class="pri" data-a="addE">Xodim qo‘shish</button></div><div class="add"><button data-a="genpins">Xodimlarga PIN kod yaratish (yo‘qlariga)</button><span class="sub" id="pinmsg" style="margin:0">Har bir xodim o‘z PIN kodi bilan kirib, faqat o‘ziga imzo qo‘ya oladi.</span></div><div class="add"><input id="ndn" placeholder="Yangi bo‘lim nomi"><button data-a="addD">Bo‘lim qo‘shish</button></div>`;
  R.depts.forEach(d=>{const L=R.emps.filter(e=>e.dept===d.id);h+=`<input class="dn" value="${esc(d.name)}" data-c="dr:${d.id}">`+L.map(e=>`<div class="sr${isOff(e)?" off":""}"><input value="${esc(e.name)}" data-c="en:${e.id}"><select data-c="ed:${e.id}">${dopts(e.dept)}</select><select data-c="ew:${e.id}">${wopts(e.off)}</select><label class="tg"><input type="checkbox" ${isOff(e)?"checked":""} data-c="eo:${e.id}">Dam (${fdate()})</label><label class="tg"><input type="checkbox" ${e.intern?"checked":""} data-c="ei:${e.id}">Stajor</label><label class="tg"><input type="checkbox" ${e.inactive?"checked":""} data-c="ea:${e.id}">Nofaol</label><input inputmode="numeric" maxlength="4" placeholder="PIN" value="${esc(pins[e.id]||"")}" data-c="pn:${e.id}" aria-label="Xodim PIN kodi" style="max-width:96px"><button class="d" data-a="de:${e.id}">O‘chirish</button></div>`).join("")+(L.length?"":`<button class="d" data-a="dd:${d.id}">Bo‘limni o‘chirish</button>`)});return h}
-function setView(){return `<div class="add" style="flex-direction:column"><label class="sub" style="margin:0">Bir kishiga tushlik puli (so‘m)<input type="number" step="1000" min="0" value="${R.amount}" data-c="amt" style="width:100%"></label><label class="sub" style="margin:0">Admin PIN kodi (4 ta raqam)<input value="${esc(PIN)}" inputmode="numeric" maxlength="4" data-c="pin" style="width:100%"></label><label class="tg"><input type="checkbox" ${R.dinner?"checked":""} data-c="dnr">Kechki ovqat rejimini yoqish</label><label class="sub" style="margin:0">Kechki ovqat puli (so‘m)<input type="number" step="1000" min="0" value="${Number(R.dinnerAmt)||R.amount}" data-c="dna" style="width:100%"></label><button class="pri" data-a="kiosk">Xodimlar rejimini yoqish</button></div>`}
+function setView(){return `<div class="add" style="flex-direction:column"><label class="sub" style="margin:0">Bir kishiga tushlik puli (so‘m)<input type="number" step="1000" min="0" value="${R.amount}" data-c="amt" style="width:100%"></label><label class="sub" style="margin:0">Admin PIN kodi (4 ta raqam)<input value="${esc(PIN)}" inputmode="numeric" maxlength="4" data-c="pin" style="width:100%"></label><div class="a2box"><b>Admin 2 (alohida hisob)</b><label class="sub" style="margin:0">Admin 2 PIN kodi (4 ta raqam, bo‘sh = o‘chirilgan)<input value="${esc(PIN2)}" inputmode="numeric" maxlength="4" data-c="pin2" style="width:100%"></label><p class="sub" style="margin:0">Admin 2 boshqaradigan bo‘limlar (ularning imzo, to‘lov, arxiv va A4 hisoboti alohida bo‘ladi):</p><div class="tags">${R.depts.map(d=>`<label class="tag tg"><input type="checkbox" ${a2ids.includes(d.id)?"checked":""} data-c="a2d:${d.id}">${esc(d.name)}</label>`).join("")}</div><p class="sub" id="pinmsg" style="margin:0"></p></div><label class="tg"><input type="checkbox" ${R.dinner?"checked":""} data-c="dnr">Kechki ovqat rejimini yoqish</label><label class="sub" style="margin:0">Kechki ovqat puli (so‘m)<input type="number" step="1000" min="0" value="${Number(R.dinnerAmt)||R.amount}" data-c="dna" style="width:100%"></label><button class="pri" data-a="kiosk">Xodimlar rejimini yoqish</button></div>`}
 function payView(){const B={};payRows.forEach(x=>{const k=x.date+"_"+x.ts;(B[k]=B[k]||{date:x.date,ts:x.ts,by:x.by,rows:[]}).rows.push(x)});let tot=0;payRows.forEach(x=>tot+=Number(x.amt));
  let h=`<div class="stats"><div class="k"><small>To‘lanishi kerak</small><b>${payRows.length}</b> kishi</div><div class="k"><small>Umumiy summa</small><b>${fmt(tot)}</b> so‘m</div><div class="k"><small>Alohida ro‘yxatlar</small><b>${Object.keys(B).length}</b> ta</div></div>`;
  if(!payRows.length)return h+'<p class="sub">To‘lanmagan imzo yo‘q.</p>';
@@ -216,11 +259,13 @@ function payView(){const B={};payRows.forEach(x=>{const k=x.date+"_"+x.ts;(B[k]=
 function reqView(){if(!reqs.length)return '<p class="sub">Yangi so‘rovlar yo‘q.</p>';return reqs.map(q=>`<div class="sr"><input data-c="rq" id="rq${q.id}" value="${esc(q.name)}"><select data-c="rq" id="rqd${q.id}">${dopts(q.dept)}</select><button class="pri" data-a="ap:${q.id}">Tasdiqlash</button><button class="d" data-a="rj:${q.id}">Rad etish</button></div>`).join("")}
 function archView(){if(!daysList.length)return '<p class="sub">Arxiv bo‘sh.</p>';return daysList.map(d=>`<div class="r"><div><b>${d.date.split("-").reverse().join(".")}</b> ${WD[new Date(d.date+"T12:00:00").getDay()]}<p class="sub" style="margin:0">${d.n} kishi, ${fmt(d.sum)} so‘m. To‘langan: ${d.paidN} (${fmt(d.paidSum)})${d.n>d.paidN?`. <span style="color:var(--dan)">To‘lanmagan: ${d.n-d.paidN} (${fmt(d.sum-d.paidSum)})</span>`:""}${d.closed?"":". Kun ochiq"}</p></div><button data-a="op:${d.date}">Ochish</button></div>`).join("")}
 function render(){
+  if(booting){$("app").className="";$("app").innerHTML='<div style="text-align:center;margin-top:28vh"><div class="spin l"></div><p class="sub" style="margin:14px 0 0">Yuklanmoqda…</p></div>';return}
   if(me){if(date!==todayS())date=todayS();$("app").className="";$("app").innerHTML=head(true)+meView();return}
+  if(!admin&&!kiosk){kpMode="login";$("app").className="";$("app").innerHTML=loginView();return}
   if(R&&!R.dinner&&meal==="k"){meal="o";subSigs()}
  const e=!admin||kiosk,a=document.activeElement,keep=a&&a.id==="q"?a.selectionStart:null;
  if(e&&date!==todayS()){date=todayS();subSigs()}
- if(!loaded){$("app").innerHTML=head(true)+'<p class="sub">'+esc(errMsg||"Yuklanmoqda…")+"</p>"+(errMsg?'<p><button class="pri" data-a="retry">Qayta urinish</button></p>':"");return}
+ if(!loaded){$("app").innerHTML=head(true)+(errMsg?'<p class="sub">'+esc(errMsg)+'</p><p><button class="pri" data-a="retry">Qayta urinish</button></p>':'<div class="sks"><div class="sk"></div><div class="sk" style="opacity:.8"></div><div class="sk" style="opacity:.6"></div><div class="sk" style="opacity:.4"></div></div>');return}
  if(!R){$("app").innerHTML=head(e)+"<p>Ro‘yxat bo‘sh.</p>"+(admin&&!e?'<button class="pri" data-a="init">Boshlang‘ich ro‘yxatni yuklash</button>':"");return}
  {const vk=(e?"e":"a")+"|"+tab+"|"+date+"|"+df;$("app").className=vk!==lastVK?"fresh":"";lastVK=vk}
  $("app").innerHTML=head(e)+(e||tab==="sign"?signView():tab==="pay"?payView():tab==="req"?reqView():tab==="today"?todayView():tab==="arch"?archView():tab==="staff"?staffView():setView());
@@ -240,13 +285,13 @@ function initPad(){const c=$("cv"),x=c.getContext("2d");x.lineWidth=4;x.lineCap=
  padClear=()=>{x.clearRect(0,0,c.width,c.height);ink=false;inkOn=false;chk()}}
 const closeMo=()=>{$("mo").innerHTML="";render()};
 async function confirmSign(){const img=small($("cv")),ids=[...sel].filter(i=>!sigs[i]),ts=Date.now();
- $("ok").disabled=true;$("ok").textContent="Saqlanmoqda";
+ $("ok").disabled=true;$("ok").innerHTML='<span class="spin s"></span> Saqlanmoqda';
  try{const r=await api({action:"sign",date,ids,img,by:sby,meal});if(!r.ok)throw r.err||1;last="";load();
   sel.clear();$("mo").innerHTML=`<div class="ov"><div class="mo" style="text-align:center"><div class="pp" style="font-size:56px;color:var(--ac)">✓</div><h3>Imzo qabul qilindi</h3><p>Imzo adminga yuborildi. To‘lanadigan summa: <b>${fmt(ids.length*amt())} so‘m</b></p><p class="sub" style="margin:0 0 10px">Admin tasdiqlagach kassadan oling.</p><button class="pri" data-a="cancel">Yopish</button></div></div>`;setTimeout(()=>{if($("mo").innerHTML)closeMo()},6000)}
  catch(e){$("ok").disabled=false;$("ok").textContent="Tasdiqlash";$("er").textContent=(typeof e==="string"?e:"Saqlab bo‘lmadi.")+" Qayta urinib ko‘ring."}}
-function askPin(){$("mo").innerHTML=`<div class="ov"><div class="mo"><h3>Admin PIN</h3><input id="pi" type="password" inputmode="numeric" maxlength="4" style="width:100%;font-size:24px;text-align:center"><p class="er" id="er"></p><div class="acts"><button data-a="cancel">Bekor qilish</button><button class="pri" data-a="pin">Kirish</button></div></div></div>`;$("pi").focus()}
+function askPin(){kp="";kpMode="unlock";$("mo").innerHTML=`<div class="ov"><div class="mo" style="text-align:center"><h3>Admin PIN</h3><div id="kpad">${keypad()}</div><div class="acts" style="justify-content:center"><button data-a="cancel">Bekor qilish</button></div></div></div>`}
 async function prt(){await needImgs(true);let h="",n=0,sum=0,got=0;
- R.depts.forEach(d=>{const L=R.emps.filter(e=>e.dept===d.id&&(!e.inactive||sigs[e.id]));if(!L.length)return;h+=`<tr><td class="dp" colspan="5">${esc(d.name)}</td></tr>`;
+ R.depts.forEach(d=>{if(!inSc(d.id))return;const L=R.emps.filter(e=>e.dept===d.id&&(!e.inactive||sigs[e.id]));if(!L.length)return;h+=`<tr><td class="dp" colspan="5">${esc(d.name)}</td></tr>`;
   L.forEach(e=>{n++;const s=sigs[e.id],o=isOff(e)&&!s;if(s){got++;sum+=s.amt}h+=`<tr class="${o?"o":""}"><td>${n}</td><td>${esc(fo(e.name))}${e.intern?" (stajor)":""}</td><td>${s?fmt(s.amt):""}</td><td>${s&&s.img?`<img src="${s.img}" alt="">`:""}</td><td>${o?"Дам":""}</td></tr>`})});
  $("print").innerHTML=`<div class="ph"><div class="lg">ISHONCH</div><div class="t">${meal==="k"?"Кечки Овқат":"Тушлик Пули"}</div><div class="d">Сана: <u>${fdate()}</u></div></div><table><thead><tr><th class="n">№</th><th class="f">ФИО</th><th class="s">Сумма</th><th>Имзо</th><th class="m">Дам</th></tr></thead><tbody>${h}</tbody></table><div class="pf"><span>Olganlar: ${got} ta</span><span>Jami: ${fmt(sum)} so‘m</span></div>`;
  setTimeout(()=>window.print(),300)}
@@ -262,7 +307,7 @@ function act(a,b){const[k,v]=a.split(":"),id=+v;
  else if(k==="ok"){if(!inkOn)hint("Avval maydonga barmog‘ingiz bilan imzo chizing.");else if(!byOk){hint("Pulni oladigan xodimni tasdiqlang: yuqoridagi «Pulni oladi: ...» tugmasini bosing.");const q=$("byb");if(q){q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake")}}else confirmSign()}
  else if(k==="kiosk"){kiosk=true;date=todayS();lsSet("ish_kiosk","1");subSigs();render()}
  else if(k==="unlock")askPin();
- else if(k==="pin"){const p=$("pi").value;api({action:"auth",pin:p}).then(r=>{if(r.ok){PIN=p;admin=true;me=null;MY=null;try{sessionStorage.removeItem("ish_my")}catch(e){}kiosk=false;lsSet("ish_pin",p);lsSet("ish_kiosk","0");closeMo();last="";load();loadPay()}else $("er").textContent=r.err||"PIN noto‘g‘ri"})}
+ else if(k==="pin"){const p=$("pi").value;api({action:"auth",pin:p}).then(r=>{if(r.ok){PIN=p;admin=true;me=null;MY=null;try{localStorage.removeItem("ish_my")}catch(e){}kiosk=false;lsSet("ish_pin",p);lsSet("ish_kiosk","0");closeMo();last="";load();loadPay()}else $("er").textContent=r.err||"PIN noto‘g‘ri"})}
  else if(k==="init"){R=JSON.parse(JSON.stringify(SEED));saveR();render()}
  else if(k==="retry"){errMsg="";last="";render();load()}
  else if(k==="mi"){upd(()=>{const e=emp(id);e.intern=!e.intern});openEmp(id)}
@@ -271,11 +316,15 @@ function act(a,b){const[k,v]=a.split(":"),id=+v;
  else if(k==="mx")two(b,()=>{upd(()=>{R.emps=R.emps.filter(x=>x.id!==id)});closeMo()});
  else if(k==="meal"){meal=v==="k"?"k":"o";sel.clear();subSigs();render()}
  else if(k==="mylogin")askMy();
- else if(k==="myok"){const p=$("pi").value;api({action:"mystate",pin:p}).then(q=>{if(q.ok){myPin=p;try{sessionStorage.setItem("ish_my",p)}catch(e){}MY=q;me=q.emp;closeMo()}else $("er").textContent=q.err||"PIN noto‘g‘ri"})}
- else if(k==="mylogout"){me=null;MY=null;myPin="";try{sessionStorage.removeItem("ish_my")}catch(e){}last="";render();load()}
+ else if(k==="myok"){const p=$("pi").value;api({action:"mystate",pin:p}).then(q=>{if(q.ok){myPin=p;try{localStorage.setItem("ish_my",p)}catch(e){}MY=q;me=q.emp;closeMo()}else $("er").textContent=q.err||"PIN noto‘g‘ri"})}
+ else if(k==="mylogout"){me=null;MY=null;myPin="";try{localStorage.removeItem("ish_my")}catch(e){}last="";render();load()}
  else if(k==="myself")openSelf(v);
  else if(k==="mysign"){if(!inkOn)hint("Avval maydonga barmog‘ingiz bilan imzo chizing.");else confirmSelf()}
  else if(k==="genpins")api({action:"genPins",pin:PIN}).then(q=>{if(q.ok){pins=q.pins;render();msg(q.count+" ta xodimga PIN yaratildi")}else msg(q.err||"Xato")});
+ else if(k==="kd"){if(kp.length<4){kp+=v;kpUpd();kpErr("")}}
+ else if(k==="kb"){kp=kp.slice(0,-1);kpUpd();kpErr("")}
+ else if(k==="ke")submitKp();
+ else if(k==="logout"){admin=false;A2=false;PIN="";kiosk=false;R=null;loaded=false;sigs={};lsSet("ish_pin","");lsSet("ish_kiosk","0");last="";kp="";render()}
  else if(k==="print")prt();
  else if(k==="ts"){tsel.has(id)?tsel.delete(id):tsel.add(id);render()}
  else if(k==="tsall"){Object.values(sigs).forEach(x=>tsel.add(x.emp));render()}
@@ -306,7 +355,7 @@ function openEmp(id){const e=emp(id);if(!e){closeMo();return}
  $("mo").innerHTML=`<div class="ov"><div class="mo"><h3>${esc(sh(e.name))}</h3><p class="sub" style="margin:0 0 12px">${esc(dn(e.dept))}${e.intern?", stajor":""}${e.inactive?", nofaol":""}</p><div class="menu"><button data-a="mi:${id}">${e.intern?"Stajorlikni olib tashlash":"Stajor deb belgilash"}</button><button data-a="md:${id}">${isOff(e)?"Dam kunini bekor qilish":"Dam kuni qilish"} (${fdate()})</button><label class="sub" style="margin:0">Boshqa bo‘limga ko‘chirish<select data-c="mv:${id}" style="width:100%">${dopts(e.dept)}</select></label><label class="sub" style="margin:0">Haftalik dam kuni<select data-c="mw:${id}" style="width:100%">${wopts(e.off)}</select></label><button data-a="ma:${id}">${e.inactive?"Faol qilish":"Nofaol qilish (doimiy)"}</button><button class="d" data-a="mx:${id}">Xodimni ro‘yxatdan o‘chirish</button><button data-a="cancel">Yopish</button></div></div></div>`}
 let lpT=0,lpFired=false,lpUp=0,lpX=0,lpY=0;
 const lpc=()=>clearTimeout(lpT);
-document.addEventListener("pointerdown",e=>{const b=e.target.closest&&e.target.closest('.em[data-a^="pick:"]');if(!b||!admin||kiosk)return;lpX=e.clientX;lpY=e.clientY;lpc();lpT=setTimeout(()=>{lpFired=true;openEmp(+b.dataset.a.split(":")[1])},700)});
+document.addEventListener("pointerdown",e=>{const b=e.target.closest&&e.target.closest('.em[data-a^="pick:"]');if(!b||!admin||kiosk||A2)return;lpX=e.clientX;lpY=e.clientY;lpc();lpT=setTimeout(()=>{lpFired=true;openEmp(+b.dataset.a.split(":")[1])},700)});
 document.addEventListener("pointerup",()=>{lpc();if(lpFired){lpFired=false;lpUp=Date.now()}});
 document.addEventListener("pointercancel",lpc);
 document.addEventListener("pointermove",e=>{if(Math.abs(e.clientX-lpX)>10||Math.abs(e.clientY-lpY)>10)lpc()});
@@ -318,6 +367,8 @@ document.addEventListener("change",e=>{const t=e.target;if(t.id==="dt"&&t.value)
  if(k==="amt")upd(()=>{R.amount=Math.max(0,+val||0)});
  else if(k==="dnr")upd(()=>{R.dinner=t.checked});
  else if(k==="dna")upd(()=>{R.dinnerAmt=Math.max(0,+val||0)});
+ else if(k==="pin2"){const np=val.replace(/\D/g,"").slice(0,4);api({action:"setPin2",pin:PIN,np}).then(q=>{if(q.ok){PIN2=np;msg(np?"Admin 2 PIN saqlandi":"Admin 2 o‘chirildi")}else msg(q.err||"Xato")})}
+ else if(k==="a2d"){upd(()=>{const st=new Set(a2ids);t.checked?st.add(id):st.delete(id);R.a2=[...st];a2ids=R.a2})}
  else if(k==="pn"){api({action:"setEmpPin",pin:PIN,emp:id,np:val}).then(q=>{if(q.ok){pins=q.pins;msg("PIN saqlandi")}else{msg(q.err||"Xato");loadPins()}})}
  else if(k==="pin"){const np=val.replace(/\D/g,"").slice(0,4);if(np.length===4)api({action:"setPin",pin:PIN,newPin:np}).then(r=>{if(r.ok){PIN=np;lsSet("ish_pin",np)}})}
  else if(k==="dr"){if(val.trim())upd(()=>{R.depts.find(d=>d.id===id).name=val.trim()})}
@@ -329,5 +380,14 @@ document.addEventListener("change",e=>{const t=e.target;if(t.id==="dt"&&t.value)
  else if(k==="mw"){upd(()=>{emp(id).off=val===""?null:+val});openEmp(id)}
  else if(k==="mv"){upd(()=>{emp(id).dept=+val});openEmp(id)}
  else if(k==="eo")upd(()=>{const e=emp(id);e.days=e.days||{};e.days[date]=t.checked})});
-(async()=>{applyT();try{myPin=sessionStorage.getItem("ish_my")||""}catch(e){}if(myPin){const q=await api({action:"mystate",pin:myPin});if(q.ok){MY=q;me=q.emp}else myPin=""}render();if(PIN){const r=await api({action:"auth",pin:PIN});if(r.ok)admin=true}await load();loadPay();render()})();
+(async()=>{applyT();
+ try{myPin=localStorage.getItem("ish_my")||""}catch(e){}
+ const cred=myPin||PIN;
+ if(cred){booting=true;render();const q=await api({action:"login",pin:cred});
+  if(q.ok&&(q.role==="admin"||q.role==="admin2")){PIN=cred;admin=true;A2=q.role==="admin2";myPin="";me=null}
+  else if(q.ok){myPin=cred;MY=q;me=q.emp;PIN=""}
+  else if(/PIN/.test(q.err||"")){PIN="";myPin="";lsSet("ish_pin","");lsSet("ish_my","")}
+  else{PIN="";myPin=""}
+  booting=false}
+ await load();render()})();
 </script></body></html>
